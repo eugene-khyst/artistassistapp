@@ -36,9 +36,6 @@ import {getRgbChannelsPercentileCalculator} from '@/services/image/worker/rgb-ch
 import type {EditImageCommandSupplier, EditImageSlice} from '@/stores/edit-image-slice';
 import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 
-// Auto White Balance ignores this share of pixels at each end of every channel.
-const AUTO_WHITE_BALANCE_CLIP = 0.006;
-
 export interface AdjustColorsSlice {
   adjustColorsControls: AdjustColorsControls;
 
@@ -101,12 +98,9 @@ export const createAdjustColorsSlice: StateCreator<
         percentileImage = image;
       }
       if (whiteBalanceMethod === AdjustColorsWhiteBalanceMethod.Auto) {
-        return {
-          type: EditImageCommandType.AdjustColors,
-          controls,
-          minValues: await calculatePercentiles(AUTO_WHITE_BALANCE_CLIP, signal),
-          maxValues: await calculatePercentiles(1 - AUTO_WHITE_BALANCE_CLIP, signal),
-        };
+        const levels = await getRgbChannelsPercentileCalculator().calculateAutoWhiteBalanceLevels();
+        signal.throwIfAborted();
+        return {type: EditImageCommandType.AdjustColors, controls, ...levels};
       }
       return {
         type: EditImageCommandType.AdjustColors,

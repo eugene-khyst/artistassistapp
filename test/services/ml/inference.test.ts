@@ -16,12 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {gzipSync} from 'node:zlib';
+
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 
-const {create} = vi.hoisted(() => ({create: vi.fn()}));
+const {create, env} = vi.hoisted(() => {
+  const env: {wasm: {wasmPaths?: unknown}} = {wasm: {}};
+  return {create: vi.fn(), env};
+});
+
+vi.mock('onnxruntime-web/ort-wasm-simd-threaded.asyncify.wasm?url', () => ({
+  default: '/assets/ort.wasm',
+}));
 
 vi.mock('onnxruntime-web/webgpu', () => ({
-  env: {wasm: {}},
+  env,
   InferenceSession: {create},
   Tensor: class {
     constructor(
@@ -44,6 +53,8 @@ function fakeSession(run: () => Promise<unknown>) {
 const output = {output: {data: new Float32Array([1, 2]), dims: [1, 2]}};
 const input = [[{data: new Float32Array([0, 0]), dims: [1, 2]}]];
 const model = new Uint8Array([1, 2, 3]);
+const wasm = new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0]);
+const wasmGzipUrl = 'http://localhost/assets/ort.wasm.gz.bin';
 
 async function createRunner(webGpuEnabled = true) {
   const {InferenceRunner} = await import('@/services/ml/inference');
@@ -65,13 +76,84 @@ describe('inference runner', () => {
   beforeEach(() => {
     vi.resetModules();
     create.mockReset();
+    env.wasm = {};
+    vi.stubEnv('DEV', false);
     vi.stubGlobal('self', {location: {href: 'http://localhost/worker.js'}});
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(new Response(gzipSync(wasm))))
+    );
     vi.spyOn(console, 'warn').mockImplementation(() => undefined);
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
     vi.restoreAllMocks();
+  });
+
+  it('loads the gzipped WebAssembly binary once and revokes its blob URL after the first session', async () => {
+    vi.stubGlobal('navigator', {});
+    create.mockResolvedValue(fakeSession(() => Promise.resolve(output)));
+    const createObjectURL = vi.spyOn(URL, 'createObjectURL');
+    const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL');
+
+    const runner = await createRunner();
+    await runner.createInferenceSession(model, true);
+
+    expect(fetch).toHaveBeenCalledExactlyOnceWith(wasmGzipUrl);
+    const [[blob]] = createObjectURL.mock.calls as [[Blob]];
+    expect(blob.type).toBe('application/wasm');
+    expect(new Uint8Array(await blob.arrayBuffer())).toEqual(wasm);
+    const {wasm: blobUrl} = env.wasm.wasmPaths as {wasm: string};
+    expect(createObjectURL).toHaveReturnedWith(blobUrl);
+    expect(revokeObjectURL).toHaveBeenCalledExactlyOnceWith(blobUrl);
+    expect(revokeObjectURL.mock.invocationCallOrder[0]).toBeGreaterThan(
+      create.mock.invocationCallOrder[0]!
+    );
+  });
+
+  it('loads the uncompressed WebAssembly binary in development', async () => {
+    vi.stubEnv('DEV', true);
+    vi.stubGlobal('navigator', {});
+    create.mockResolvedValue(fakeSession(() => Promise.resolve(output)));
+    const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL');
+
+    await createRunner();
+
+    expect(fetch).not.toHaveBeenCalled();
+    expect(revokeObjectURL).not.toHaveBeenCalled();
+    expect(env.wasm.wasmPaths).toEqual({wasm: 'http://localhost/assets/ort.wasm'});
+  });
+
+  it('downloads the WebAssembly binary again after a failed download', async () => {
+    vi.stubGlobal('navigator', {});
+    create.mockResolvedValue(fakeSession(() => Promise.resolve(output)));
+    vi.mocked(fetch).mockResolvedValueOnce(new Response(null, {status: 404}));
+
+    await expect(createRunner()).rejects.toThrow(`HTTP 404 while fetching ${wasmGzipUrl}`);
+    expect(create).not.toHaveBeenCalled();
+    expect(env.wasm.wasmPaths).toBeUndefined();
+
+    await createRunner();
+
+    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch).toHaveBeenLastCalledWith(wasmGzipUrl);
+    expect(executionProviders()).toEqual([['wasm']]);
+  });
+
+  it('revokes the blob URL when the first session cannot be created', async () => {
+    vi.stubGlobal('navigator', {});
+    const error = new Error('bad model');
+    create.mockRejectedValue(error);
+    const createObjectURL = vi.spyOn(URL, 'createObjectURL');
+    const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL');
+
+    await expect(createRunner()).rejects.toBe(error);
+
+    const {wasm: blobUrl} = env.wasm.wasmPaths as {wasm: string};
+    expect(createObjectURL).toHaveReturnedWith(blobUrl);
+    expect(revokeObjectURL).toHaveBeenCalledExactlyOnceWith(blobUrl);
   });
 
   it('uses WebAssembly when the browser has no WebGPU', async () => {
@@ -118,6 +200,7 @@ describe('inference runner', () => {
 
     const runner = await createRunner();
 
+    expect(fetch).toHaveBeenCalledExactlyOnceWith(wasmGzipUrl);
     expect(executionProviders()).toEqual([['webgpu'], ['wasm']]);
     expect(create).toHaveBeenLastCalledWith(model, expect.anything());
     await expect(runner.runInference(input)).resolves.toEqual({

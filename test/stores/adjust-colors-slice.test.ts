@@ -37,6 +37,7 @@ import {imageEditorControls} from '@/stores/registry/image-editor-registry';
 
 const imageOperations = vi.hoisted(() => ({
   calculatePercentiles: vi.fn(),
+  calculateAutoWhiteBalanceLevels: vi.fn(),
   resizeImageBitmap: vi.fn(),
   setImage: vi.fn(),
 }));
@@ -48,6 +49,7 @@ vi.mock('comlink', () => ({
 vi.mock('@/services/image/worker/rgb-channels-percentile-worker-manager', () => ({
   getRgbChannelsPercentileCalculator: () => ({
     calculatePercentiles: imageOperations.calculatePercentiles,
+    calculateAutoWhiteBalanceLevels: imageOperations.calculateAutoWhiteBalanceLevels,
     setImage: imageOperations.setImage,
   }),
 }));
@@ -264,9 +266,10 @@ describe('AdjustColorsSlice', () => {
 
   it('opens a new image with Auto white balance as the initial adjustment', async () => {
     imageOperations.resizeImageBitmap.mockResolvedValue(createImage());
-    imageOperations.calculatePercentiles
-      .mockResolvedValueOnce([0.1, 0.2, 0.3])
-      .mockResolvedValueOnce([0.9, 0.8, 0.7]);
+    imageOperations.calculateAutoWhiteBalanceLevels.mockResolvedValueOnce({
+      minValues: [0.1, 0.2, 0.3],
+      maxValues: [0.9, 0.8, 0.7],
+    });
     const {store, setImageFileToEdit, setActiveImageEditorKey, getPreviewCommand} =
       createTestStore(createImage());
     const file = new Blob() as File;
@@ -334,12 +337,13 @@ describe('AdjustColorsSlice', () => {
     });
   });
 
-  it('clips both ends of every channel for Auto white balance', async () => {
+  it('takes Auto white balance levels from the image prepared once', async () => {
     const resizedImage = createImage();
     imageOperations.resizeImageBitmap.mockResolvedValueOnce(resizedImage);
-    imageOperations.calculatePercentiles
-      .mockResolvedValueOnce([0.1, 0.09, 0.08])
-      .mockResolvedValueOnce([0.95, 0.97, 0.99]);
+    imageOperations.calculateAutoWhiteBalanceLevels.mockResolvedValue({
+      minValues: [0.1, 0.09, 0.08],
+      maxValues: [0.95, 0.97, 0.99],
+    });
     const {store, getPreviewCommand} = createTestStore(createImage());
 
     store.setState({
@@ -357,7 +361,7 @@ describe('AdjustColorsSlice', () => {
     await store.getState().previewAdjustColors();
 
     expect(imageOperations.setImage).toHaveBeenCalledExactlyOnceWith(resizedImage);
-    expect(imageOperations.calculatePercentiles.mock.calls).toEqual([[0.006], [0.994]]);
+    expect(imageOperations.calculateAutoWhiteBalanceLevels.mock.calls).toEqual([[], []]);
     expect(getPreviewCommand()).toEqual({
       type: EditImageCommandType.AdjustColors,
       controls: store.getState().adjustColorsControls,
@@ -384,10 +388,11 @@ describe('AdjustColorsSlice', () => {
   it('keeps percentile values cached when switching between Percentile and Auto', async () => {
     const resizedImage = createImage();
     imageOperations.resizeImageBitmap.mockResolvedValueOnce(resizedImage);
-    imageOperations.calculatePercentiles
-      .mockResolvedValueOnce([0.9, 0.8, 0.7])
-      .mockResolvedValueOnce([0.1, 0.09, 0.08])
-      .mockResolvedValueOnce([0.95, 0.97, 0.99]);
+    imageOperations.calculatePercentiles.mockResolvedValueOnce([0.9, 0.8, 0.7]);
+    imageOperations.calculateAutoWhiteBalanceLevels.mockResolvedValueOnce({
+      minValues: [0.1, 0.09, 0.08],
+      maxValues: [0.95, 0.97, 0.99],
+    });
     const {store, getPreviewCommand} = createTestStore(createImage());
 
     await store.getState().previewAdjustColors();
@@ -401,7 +406,8 @@ describe('AdjustColorsSlice', () => {
     await store.getState().previewAdjustColors();
 
     expect(imageOperations.setImage).toHaveBeenCalledExactlyOnceWith(resizedImage);
-    expect(imageOperations.calculatePercentiles.mock.calls).toEqual([[0.98], [0.006], [0.994]]);
+    expect(imageOperations.calculatePercentiles).toHaveBeenCalledExactlyOnceWith(0.98);
+    expect(imageOperations.calculateAutoWhiteBalanceLevels).toHaveBeenCalledExactlyOnceWith();
     expect(getPreviewCommand()).toEqual({
       type: EditImageCommandType.AdjustColors,
       controls: store.getState().adjustColorsControls,

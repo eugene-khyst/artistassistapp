@@ -141,6 +141,9 @@ Pure business logic, no React.
   keyed by id, so they can be translated.
 - Keep ONNX Runtime WASM bundled locally from `onnxruntime-web`; never point it at a third-party
   CDN.
+- Ship that WASM as `.gz.bin` and decompress it in the inference worker: Cloudflare Pages rejects
+  files over 25 MiB, drops `Content-Encoding` from `_headers` and compresses again; servers send
+  `.gz` with `Content-Encoding`; the service worker skips an extension without a MIME type.
 - Never retain model bytes for a run-time fallback, and never add one: a failed run fails the job,
   and the user turns WebGPU off in Help. Operations WebGPU cannot run already use the CPU inside the
   same session.

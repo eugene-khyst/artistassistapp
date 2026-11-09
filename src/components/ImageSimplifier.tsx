@@ -18,10 +18,10 @@
 
 import {InfoCircleOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Grid, Popover, Space, Typography} from 'antd';
+import {Button, Grid, Popover, Typography} from 'antd';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
-import {ImageActions} from '@/components/image/ImageActions';
+import {ImageToolbar} from '@/components/image/ImageToolbar';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useImageActions} from '@/hooks/useImageActions';
@@ -107,46 +107,50 @@ export function ImageSimplifier() {
     return <EmptyImage />;
   }
 
-  const mobileFocalPointInstruction = t`Tap 👆 anywhere in the photo to choose a focal point.`;
+  const focalPointInstruction = screens.md
+    ? t`Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point.`
+    : t`Tap 👆 anywhere in the photo to choose a focal point.`;
 
   return (
     <LoadingIndicator loading={isSimplifiedImagesLoading}>
       <div className="u-tab-view">
-        <Space className="u-tab-toolbar">
-          <ImageViewSelector
-            isShowingOriginal={isShowingOriginal}
-            resultLabel={<Trans>Simplified</Trans>}
-            onChange={setIsShowingOriginal}
-            disabled={!simplifiedMaskedImage}
-          />
-
-          <ImageActions
-            collapseBelow="md"
-            disabled={!simplifiedMaskedImage || isShowingOriginal}
-            onPrint={print}
-            onSave={save}
-            onSetAsReference={setAsReference}
-          />
-
-          {!isShowingOriginal &&
-            (screens.md ? (
-              <Typography.Text>
-                <Trans>Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point.</Trans>
-              </Typography.Text>
-            ) : (
-              <Popover content={mobileFocalPointInstruction} trigger="click">
-                <Button
-                  type="text"
-                  icon={<InfoCircleOutlined />}
-                  aria-label={t`Focal point instructions`}
-                />
-              </Popover>
-            ))}
-        </Space>
+        <ImageToolbar
+          className="u-tab-toolbar"
+          extraContent={{
+            before: (
+              <ImageViewSelector
+                isShowingOriginal={isShowingOriginal}
+                resultLabel={<Trans>Simplified</Trans>}
+                compact={!screens.sm}
+                onChange={setIsShowingOriginal}
+                disabled={!simplifiedMaskedImage}
+              />
+            ),
+            after:
+              !isShowingOriginal &&
+              (screens.xl ? (
+                <Typography.Text>{focalPointInstruction}</Typography.Text>
+              ) : (
+                <Popover content={focalPointInstruction} trigger="click">
+                  <Button
+                    type="text"
+                    icon={<InfoCircleOutlined />}
+                    aria-label={t`Focal point instructions`}
+                  />
+                </Popover>
+              )),
+          }}
+          imageActions={{
+            print,
+            save,
+            setAsReference,
+            disabled: !simplifiedMaskedImage || isShowingOriginal,
+          }}
+        />
         <div className={styles['canvasContainer']}>
-          {!screens.md && !isShowingOriginal && !simplifyFocalPoint && (
+          {!screens.xl && !isShowingOriginal && !simplifyFocalPoint && (
             <Typography.Text className={styles['focalPointHint']}>
-              {mobileFocalPointInstruction}
+              {focalPointInstruction}
             </Typography.Text>
           )}
           <canvas ref={canvasRef} className={styles['previewCanvas']} />

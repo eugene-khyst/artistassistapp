@@ -18,12 +18,12 @@
 
 import {BgColorsOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Button, Flex, Form, Grid, Radio, Select, Space, Typography} from 'antd';
+import {Button, Flex, Form, Grid, Radio, Select, Typography} from 'antd';
 import {type RadioChangeEvent} from 'antd/lib';
 import {useEffect, useMemo, useState} from 'react';
 
 import {EmptyImage} from '@/components/empty/EmptyImage';
-import {ImageActions} from '@/components/image/ImageActions';
+import {ImageToolbar} from '@/components/image/ImageToolbar';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useAccessTo} from '@/hooks/useAccessTo';
@@ -79,7 +79,8 @@ export function ImagePainting() {
     t`Check your connection and try again.`
   );
 
-  const [isShowingOriginal, setIsShowingOriginal] = useState(false);
+  const [originalShownFor, setOriginalShownFor] = useState<ImageBitmap | null>(null);
+  const isShowingOriginal = !!paintingImage && originalShownFor === paintingImage;
 
   const images = useMemo(() => [paintingImage, originalImage], [paintingImage, originalImage]);
 
@@ -106,8 +107,8 @@ export function ImagePainting() {
   }, [access, model, setPaintingModel]);
 
   useEffect(() => {
-    zoomableImageCanvas?.setImageIndex(isShowingOriginal && paintingImage ? 1 : 0);
-  }, [zoomableImageCanvas, isShowingOriginal, paintingImage]);
+    zoomableImageCanvas?.setImageIndex(isShowingOriginal ? 1 : 0);
+  }, [zoomableImageCanvas, isShowingOriginal]);
 
   if (!originalImage) {
     return <EmptyImage />;
@@ -121,62 +122,77 @@ export function ImagePainting() {
     >
       <div className="u-tab-view">
         <Flex vertical className="u-tab-toolbar">
-          <Space wrap className="u-flex">
-            <Form.Item
-              label={screens.sm ? <Trans>Strokes</Trans> : null}
-              labelCol={{className: 'u-pb-0'}}
-              tooltip={<Trans>Number of brush strokes in the painting</Trans>}
-              className="u-mb-0"
-            >
-              {screens.sm ? (
-                <Radio.Group
-                  optionType="button"
-                  buttonStyle="solid"
-                  options={STROKE_COUNT_OPTIONS}
-                  value={paintingPatchSize}
-                  onChange={({target: {value}}: RadioChangeEvent) => {
-                    setPaintingPatchSize(value as PaintingPatchSize);
-                  }}
-                  disabled={access !== Access.Allowed}
-                />
-              ) : (
-                <Select<PaintingPatchSize>
-                  aria-label={t`Strokes`}
-                  options={STROKE_COUNT_OPTIONS}
-                  value={paintingPatchSize}
-                  onChange={(value: PaintingPatchSize) => {
-                    setPaintingPatchSize(value);
-                  }}
-                  disabled={access !== Access.Allowed}
-                  popupMatchSelectWidth={false}
-                />
-              )}
-            </Form.Item>
-            {!paintingImage && !isPaintingImageLoading && access === Access.Allowed && (
-              <Button
-                type="primary"
-                icon={<BgColorsOutlined />}
-                onClick={() => {
-                  void loadPaintingImage();
-                }}
-              >
-                <Trans>Paint</Trans>
-              </Button>
-            )}
-            <ImageViewSelector
-              isShowingOriginal={isShowingOriginal}
-              resultLabel={<Trans>Painting</Trans>}
-              onChange={setIsShowingOriginal}
-              disabled={!paintingImage}
-            />
-            <ImageActions
-              collapseBelow="md"
-              disabled={!paintingImage || isShowingOriginal}
-              onPrint={print}
-              onSave={save}
-              onSetAsReference={setAsReference}
-            />
-          </Space>
+          <ImageToolbar
+            extraContent={{
+              before: (
+                <>
+                  <Form.Item
+                    label={screens.md ? <Trans>Strokes</Trans> : null}
+                    labelCol={{className: 'u-pb-0'}}
+                    tooltip={<Trans>Number of brush strokes in the painting</Trans>}
+                    className="u-mb-0"
+                  >
+                    {screens.md ? (
+                      <Radio.Group
+                        optionType="button"
+                        buttonStyle="solid"
+                        options={STROKE_COUNT_OPTIONS}
+                        value={paintingPatchSize}
+                        onChange={({target: {value}}: RadioChangeEvent) => {
+                          setPaintingPatchSize(value as PaintingPatchSize);
+                        }}
+                        disabled={access !== Access.Allowed}
+                      />
+                    ) : (
+                      <Select<PaintingPatchSize>
+                        aria-label={t`Strokes`}
+                        options={STROKE_COUNT_OPTIONS}
+                        value={paintingPatchSize}
+                        onChange={(value: PaintingPatchSize) => {
+                          setPaintingPatchSize(value);
+                        }}
+                        disabled={access !== Access.Allowed}
+                        popupMatchSelectWidth={false}
+                      />
+                    )}
+                  </Form.Item>
+                  {paintingImage ? (
+                    <ImageViewSelector
+                      isShowingOriginal={isShowingOriginal}
+                      resultLabel={<Trans>Painting</Trans>}
+                      compact={!screens.sm}
+                      onChange={isOriginal => {
+                        setOriginalShownFor(isOriginal ? paintingImage : null);
+                      }}
+                    />
+                  ) : (
+                    !isPaintingImageLoading &&
+                    access === Access.Allowed && (
+                      <Button
+                        type="primary"
+                        icon={<BgColorsOutlined />}
+                        onClick={() => {
+                          void loadPaintingImage();
+                        }}
+                      >
+                        <Trans>Paint</Trans>
+                      </Button>
+                    )
+                  )}
+                </>
+              ),
+            }}
+            imageActions={
+              paintingImage
+                ? {
+                    print,
+                    save,
+                    setAsReference,
+                    disabled: isShowingOriginal,
+                  }
+                : undefined
+            }
+          />
           {access === Access.Denied && (
             <Typography.Text type="warning">
               <Trans>Loose painting is available only to paid Patreon members</Trans>

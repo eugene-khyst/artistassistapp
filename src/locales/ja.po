@@ -68,7 +68,7 @@ msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windowsおよび <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:97
-#: src/components/color/CompareMixtureDrawer.tsx:224
+#: src/components/color/CompareMixtureDrawer.tsx:211
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> 一致"
 
@@ -156,7 +156,7 @@ msgstr "アクリル絵の具"
 msgid "Add a color mixture to the palette"
 msgstr "混色をパレットに追加する"
 
-#: src/components/color/CompareMixtureDrawer.tsx:246
+#: src/components/color/CompareMixtureDrawer.tsx:233
 msgid "Add a little more:"
 msgstr "次の絵の具を少し追加してください："
 
@@ -256,8 +256,7 @@ msgstr "筆圧を弱めると、水彩色鉛筆の層がより透明になりま
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "この色とアンダーレイヤーの色のストロークを <0>{ratioText} の比率</0>で塗ります"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageOutline.tsx:252
 msgid "AR"
 msgstr "AR"
 
@@ -412,7 +411,7 @@ msgstr "一致度順"
 msgid "By name"
 msgstr "名前順"
 
-#: src/components/ImageOutline.tsx:152
+#: src/components/ImageOutline.tsx:133
 msgid "Camera access is required for AR tracing"
 msgstr "ARトレーシングにはカメラアクセスが必要です"
 
@@ -438,7 +437,8 @@ msgstr "有料メンバーシップの解約"
 msgid "Cannot use copied image"
 msgstr "コピー画像は使用できません"
 
-#: src/components/grid/GridControls.tsx:144
+#: src/components/grid/GridControls.tsx:151
+#: src/components/grid/GridControls.tsx:157
 msgid "Cells"
 msgstr "セル"
 
@@ -446,7 +446,7 @@ msgstr "セル"
 msgid "Check for updates"
 msgstr "アップデートの確認"
 
-#: src/components/color/CompareMixtureDrawer.tsx:201
+#: src/components/color/CompareMixtureDrawer.tsx:188
 msgid "Check that one square, the white point, is on the white paper or canvas and the other is on your mix. Drag a square to move it."
 msgstr "一方の四角（ホワイトポイント）が白い紙やキャンバス上に、もう一方が混ぜた絵の具の上にあることを確認してください。四角をドラッグすると移動できます。"
 
@@ -458,7 +458,7 @@ msgstr "一方の四角（ホワイトポイント）が白い紙やキャンバ
 #: src/components/image-editor/RestoreEditorControls.tsx:47
 #: src/components/image-editor/UpscaleEditorControls.tsx:48
 #: src/components/ImageChooser.tsx:73
-#: src/components/ImageOutline.tsx:103
+#: src/components/ImageOutline.tsx:84
 #: src/components/ImagePainting.tsx:79
 #: src/components/ImageStyleTransfer.tsx:129
 msgid "Check your connection and try again."
@@ -504,7 +504,7 @@ msgstr "統一色をクリア"
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "画像内の任意の場所を 🖱️ クリックまたは 👆 タップして、ホワイトポイントを選びます。"
 
-#: src/components/ImageSimplifier.tsx:134
+#: src/components/ImageSimplifier.tsx:111
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point."
 msgstr "🖱️ をクリックするか、写真内の任意の場所で 👆 をタップして焦点を選択します。"
 
@@ -600,8 +600,8 @@ msgstr "カラーブランド"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "カラーデータは現在利用できません。接続を確認して、もう一度試してください。"
 
-#: src/components/ImageTonalValues.tsx:128
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:136
+#: src/components/ImageTonalValues.tsx:139
 msgid "Color map"
 msgstr "カラーマップ"
 
@@ -661,11 +661,19 @@ msgstr "必要な色"
 msgid "Colors needed for this palette"
 msgstr "このパレットに必要な色"
 
+#: src/components/ImageTonalValues.tsx:169
+msgid "Compare"
+msgstr "比較"
+
 #: src/components/messages.ts:44
 msgid "Compare images"
 msgstr "画像を比較する"
 
-#: src/components/color/CompareMixtureDrawer.tsx:152
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:54
+msgid "Compare tonal values"
+msgstr "明暗の階調を比較"
+
+#: src/components/color/CompareMixtureDrawer.tsx:151
 #: src/components/color/PaletteColorMixtureCard.tsx:181
 msgid "Compare your mix"
 msgstr "混ぜた色を比較"
@@ -755,7 +763,7 @@ msgstr "バックアップをエクスポートできませんでした"
 msgid "Could not import backup"
 msgstr "バックアップをインポートできませんでした"
 
-#: src/components/color/CompareMixtureDrawer.tsx:186
+#: src/components/file/PhotoPicker.tsx:44
 msgid "Could not open this photo. Choose another one."
 msgstr "この写真を開けませんでした。別の写真を選んでください。"
 
@@ -901,7 +909,7 @@ msgstr "ペアごとの比較によって最適な画像を決定します"
 msgid "Diagnostics"
 msgstr "診断"
 
-#: src/components/grid/GridControls.tsx:153
+#: src/components/grid/GridControls.tsx:165
 msgid "Diagonals"
 msgstr "対角線"
 
@@ -1029,13 +1037,9 @@ msgstr "名前を入力してください"
 msgid "Enter a valid email"
 msgstr "有効なメールアドレスを入力してください"
 
-#: src/components/ImageOutline.tsx:276
+#: src/components/ImageOutline.tsx:245
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "紙越しに輪郭をなぞるには、ライトボックスモードにします"
-
-#: src/components/ImageOutline.tsx:341
-msgid "Enter lightbox mode to trace the outline through your paper."
-msgstr "紙越しに輪郭をなぞるには、ライトボックスモードにします。"
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
@@ -1061,8 +1065,11 @@ msgstr "画像を撮影したときの光源の推定色温度(ケルビン)"
 msgid "Etching"
 msgstr "エッチング"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageTonalValues.tsx:179
+msgid "Exit"
+msgstr "終了"
+
+#: src/components/ImageOutline.tsx:252
 msgid "Exit AR"
 msgstr "ARを終了"
 
@@ -1138,7 +1145,7 @@ msgstr "最も精細"
 msgid "Finish editing"
 msgstr "編集を終了"
 
-#: src/components/ImageSimplifier.tsx:141
+#: src/components/ImageSimplifier.tsx:138
 msgid "Focal point instructions"
 msgstr "焦点の選び方"
 
@@ -1183,8 +1190,9 @@ msgstr "{label} タブに移動します"
 msgid "Gouache"
 msgstr "ガッシュ"
 
-#: src/components/grid/GridControls.tsx:131
-#: src/components/ImageOutline.tsx:316
+#: src/components/grid/GridControls.tsx:137
+#: src/components/grid/GridControls.tsx:142
+#: src/components/ImageOutline.tsx:262
 #: src/components/messages.ts:37
 msgid "Grid"
 msgstr "グリッド"
@@ -1214,7 +1222,7 @@ msgstr "水平"
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "保存しないと、カラーセットの変更が失われる可能性があります。"
 
-#: src/components/color/CompareMixtureDrawer.tsx:168
+#: src/components/color/CompareMixtureDrawer.tsx:167
 msgid "If your paint changes color as it dries, wait until the swatch is dry. Take the photo in even light, with some of the white paper or canvas showing and no shadows or glare."
 msgstr "絵の具が乾くと色が変わる場合は、色見本が乾くまで待ってください。白い紙やキャンバスの一部が写るようにし、影や反射を避けて、均一な明るさの下で撮影してください。"
 
@@ -1340,15 +1348,11 @@ msgstr "折りたたむ"
 msgid "Light"
 msgstr "軽量"
 
-#: src/components/ImageOutline.tsx:340
-msgid "Light box"
-msgstr "ライトボックス"
-
 #: src/components/messages.ts:86
 msgid "Light tones"
 msgstr "明るいトーン"
 
-#: src/components/ImageOutline.tsx:284
+#: src/components/ImageOutline.tsx:243
 msgid "Lightbox"
 msgstr "ライトボックス"
 
@@ -1385,7 +1389,7 @@ msgstr "ログイン結果を受信できませんでした"
 msgid "Loose painting"
 msgstr "ラフペインティング"
 
-#: src/components/ImagePainting.tsx:182
+#: src/components/ImagePainting.tsx:198
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "ラフペインティングは有料の Patreon メンバーのみが利用できます"
 
@@ -1469,7 +1473,7 @@ msgstr "アクリル用グレージングメディウムと絵の具を混ぜて
 msgid "Mix this color into every mixture."
 msgstr "この色をすべての混色に混ぜます。"
 
-#: src/components/color/CompareMixtureDrawer.tsx:256
+#: src/components/color/CompareMixtureDrawer.tsx:243
 msgid "Mix well and take a new photo"
 msgstr "よく混ぜて新しい写真を撮ってください"
 
@@ -1486,8 +1490,8 @@ msgstr "混色"
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:69
 #: src/components/image-editor/RestoreEditorControls.tsx:64
 #: src/components/image-editor/SharpenEditorControls.tsx:62
-#: src/components/ImageOutline.tsx:254
-#: src/components/ImageOutline.tsx:260
+#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:223
 msgid "Mode"
 msgstr "モード"
 
@@ -1496,11 +1500,10 @@ msgid "More"
 msgstr "もっと見る"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
+#: src/components/image/ImageToolbar.tsx:217
 #: src/components/ImageColorPicker.tsx:354
 #: src/components/ImageLimitedPalette.tsx:181
-#: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "その他の操作"
 
@@ -1508,11 +1511,11 @@ msgstr "その他の操作"
 msgid "Mosaic"
 msgstr "モザイク"
 
-#: src/components/color/CompareMixtureDrawer.tsx:138
+#: src/components/color/CompareMixtureDrawer.tsx:137
 msgid "Move the squares so they do not overlap"
 msgstr "四角が重ならないように移動してください"
 
-#: src/components/color/CompareMixtureDrawer.tsx:136
+#: src/components/color/CompareMixtureDrawer.tsx:135
 msgid "Move the white point to the white paper or canvas, away from shadows and glare"
 msgstr "ホワイトポイントを白い紙やキャンバス上の、影や反射のない場所に移動してください"
 
@@ -1563,7 +1566,7 @@ msgstr "新しいサイズ: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "次回の請求日"
 
-#: src/components/color/CompareMixtureDrawer.tsx:264
+#: src/components/color/CompareMixtureDrawer.tsx:251
 msgid "No better match found. Check the swatch and lighting."
 msgstr "より近い色にする調整は見つかりませんでした。色見本と照明を確認してください。"
 
@@ -1605,11 +1608,11 @@ msgstr "Patreonがどのメールアドレスを使っているのか分から�
 msgid "Nothing to share"
 msgstr "共有するものはありません"
 
-#: src/components/ImagePainting.tsx:128
+#: src/components/ImagePainting.tsx:132
 msgid "Number of brush strokes in the painting"
 msgstr "絵画のブラシストローク数"
 
-#: src/components/grid/GridControls.tsx:146
+#: src/components/grid/GridControls.tsx:153
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "小さい方の辺のセルの数 (垂直または水平)"
 
@@ -1640,7 +1643,7 @@ msgstr "無料版では、限られた数のカラーブランドしか利用で
 #: src/components/image-editor/ColorizeEditorControls.tsx:92
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:81
 #: src/components/image-editor/RestoreEditorControls.tsx:76
-#: src/components/ImageOutline.tsx:388
+#: src/components/ImageOutline.tsx:289
 msgid "Only a limited number of modes are available in the free version"
 msgstr "無料版で利用できるモードは限られています"
 
@@ -1678,7 +1681,7 @@ msgid "Or select from your recent photos"
 msgstr "または、最近の写真から選択します"
 
 #: src/components/image-editor/CropEditorControls.tsx:37
-#: src/components/image/ImageViewSelector.tsx:45
+#: src/components/image/ImageViewSelector.tsx:44
 msgid "Original"
 msgstr "元の比率"
 
@@ -1686,7 +1689,7 @@ msgstr "元の比率"
 msgid "Original color temperature (K)"
 msgstr "元の色温度(K)"
 
-#: src/components/ImageOutline.tsx:269
+#: src/components/ImageOutline.tsx:232
 #: src/components/messages.ts:36
 msgid "Outline"
 msgstr "輪郭"
@@ -1700,15 +1703,15 @@ msgid "over"
 msgstr "オーバー"
 
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImagePainting.tsx:163
+#: src/components/ImagePainting.tsx:178
 msgid "Paint"
 msgstr "絵画化"
 
-#: src/components/color/CompareMixtureDrawer.tsx:162
+#: src/components/color/CompareMixtureDrawer.tsx:161
 msgid "Paint a swatch of your mix at full strength on white paper or canvas. For a wash or thin layer, test the mix before you thin it."
 msgstr "混ぜた絵の具を薄めずに白い紙やキャンバスに塗り、色見本を作ってください。ウォッシュや薄塗りの場合も、薄める前の絵の具で確認してください。"
 
-#: src/components/ImagePainting.tsx:168
+#: src/components/ImagePainting.tsx:162
 msgid "Painting"
 msgstr "絵画"
 
@@ -1773,7 +1776,7 @@ msgstr "写真を利用できません。クラウドストレージから復元
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "写真を利用できません。修復するには、元のファイルを選び直してください。"
 
-#: src/components/color/CompareMixtureDrawer.tsx:197
+#: src/components/color/CompareMixtureDrawer.tsx:184
 msgid "Photo with squares on the white point and your mix"
 msgstr "ホワイトポイントと混ぜた絵の具の上に四角がある写真"
 
@@ -1838,11 +1841,8 @@ msgstr "気に入った混色の横にある <0>パレットに追加</0> ボタ
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:64
-#: src/components/image/ImageActions.tsx:85
+#: src/components/image/ImageToolbar.tsx:127
 #: src/components/ImageLimitedPalette.tsx:146
-#: src/components/ImageOutline.tsx:324
-#: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
 #: src/components/palette/PaletteGrid.tsx:142
 #: src/components/print/PrintImageDrawer.tsx:183
@@ -2033,10 +2033,9 @@ msgstr "彩度(%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
+#: src/components/image/ImageToolbar.tsx:140
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "保存"
 
@@ -2171,7 +2170,7 @@ msgstr "言語の選択"
 msgid "Select part"
 msgstr "比率を選択"
 
-#: src/components/color/CompareMixtureDrawer.tsx:179
+#: src/components/file/PhotoPicker.tsx:37
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "写真を選択"
@@ -2211,7 +2210,7 @@ msgstr "画材、カラーブランド、描画に使う色を選び、<0>保存
 #: src/components/image-editor/ColorizeEditorControls.tsx:86
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:75
 #: src/components/image-editor/RestoreEditorControls.tsx:70
-#: src/components/ImageOutline.tsx:382
+#: src/components/ImageOutline.tsx:283
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "選択したモードは有料の Patreon メンバーのみが利用できます"
 
@@ -2235,8 +2234,8 @@ msgstr "セッションの有効期限切れ"
 msgid "Set as main color set"
 msgstr "メインカラーセットとして設定"
 
-#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
+#: src/components/image/ImageToolbar.tsx:151
 #: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "参照として設定"
@@ -2299,7 +2298,7 @@ msgstr "すべて表示"
 msgid "Show areas on the photo that match this color."
 msgstr "この色に一致する部分を写真上に表示します。"
 
-#: src/components/grid/GridControls.tsx:123
+#: src/components/grid/GridControls.tsx:129
 msgid "Show grid"
 msgstr "グリッドを表示"
 
@@ -2315,7 +2314,7 @@ msgstr "古い写真を表示"
 msgid "Show on photo"
 msgstr "写真に表示"
 
-#: src/components/grid/GridControls.tsx:155
+#: src/components/grid/GridControls.tsx:167
 msgid "Show or hide diagonal lines"
 msgstr "斜めの線を表示または非表示にする"
 
@@ -2335,7 +2334,7 @@ msgstr "類似度"
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "類似度モードは、ターゲットの色と提案された色を比較します。混色モードでは、混色を構成する各色の比率が表示されます。"
 
-#: src/components/ImageSimplifier.tsx:118
+#: src/components/ImageSimplifier.tsx:123
 msgid "Simplified"
 msgstr "単純化済み"
 
@@ -2400,7 +2399,7 @@ msgstr "分光反射率曲線"
 msgid "Speed"
 msgstr "速度"
 
-#: src/components/grid/GridControls.tsx:113
+#: src/components/grid/GridControls.tsx:119
 msgid "Square cells"
 msgstr "正方形のセル"
 
@@ -2428,8 +2427,8 @@ msgstr "ストレージ使用量"
 msgid "Strength"
 msgstr "強度"
 
-#: src/components/ImagePainting.tsx:126
-#: src/components/ImagePainting.tsx:144
+#: src/components/ImagePainting.tsx:130
+#: src/components/ImagePainting.tsx:148
 msgid "Strokes"
 msgstr "ブラシストローク"
 
@@ -2476,7 +2475,11 @@ msgstr "{label}と同期"
 msgid "Take a photo"
 msgstr "写真を撮る"
 
-#: src/components/ImageSimplifier.tsx:110
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:67
+msgid "Take a photo of your painting to compare its tonal values with the reference photo. Use even light with no shadows or glare."
+msgstr "描いた絵を撮影し、参照写真と明暗の階調を比較してください。影や反射を避け、均一な明るさの下で撮影してください。"
+
+#: src/components/ImageSimplifier.tsx:112
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "写真内の任意の場所で 👆 をタップして焦点を選択します。"
 
@@ -2484,7 +2487,7 @@ msgstr "写真内の任意の場所で 👆 をタップして焦点を選択し
 msgid "Taped margin width around the painting area"
 msgstr "描画領域の周囲にテープで留めた余白の幅"
 
-#: src/components/color/CompareMixtureDrawer.tsx:145
+#: src/components/color/CompareMixtureDrawer.tsx:144
 #: src/components/ImageColorPicker.tsx:321
 #: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
@@ -2639,7 +2642,7 @@ msgstr "{tabLabel} 機能を使用するには、参照写真を選択してく�
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "{tabLabel} 機能を使うには、対応する画材と描画に使う色を選択してください"
 
-#: src/components/ImageTonalValues.tsx:140
+#: src/components/ImageTonalValues.tsx:151
 #: src/components/messages.ts:33
 msgid "Tonal values"
 msgstr "明暗の階調"
@@ -2709,7 +2712,7 @@ msgstr "カラー化モードを読み込めません"
 msgid "Unable to load the object removal model"
 msgstr "オブジェクトの削除モデルを読み込めません"
 
-#: src/components/ImageOutline.tsx:102
+#: src/components/ImageOutline.tsx:83
 msgid "Unable to load the outline modes"
 msgstr "輪郭モードを読み込めません"
 
@@ -2851,13 +2854,9 @@ msgstr "垂直"
 msgid "Vienna Secession"
 msgstr "ウィーン分離派"
 
-#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:255
 msgid "View the outline over the live camera to trace in AR"
 msgstr "ARでなぞるために、ライブカメラの映像に輪郭を重ねて表示します"
-
-#: src/components/ImageOutline.tsx:350
-msgid "View the outline over the live camera to trace in AR."
-msgstr "ARでなぞるために、ライブカメラの映像に輪郭を重ねて表示します。"
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
 #: src/components/cloud/CloudFeedbackHandler.tsx:216
@@ -2919,7 +2918,7 @@ msgid "White"
 msgstr "白"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
-#: src/components/ImageTonalValues.tsx:157
+#: src/components/ImageTonalValues.tsx:187
 msgid "White balance"
 msgstr "ホワイトバランス"
 
@@ -2927,7 +2926,7 @@ msgstr "ホワイトバランス"
 msgid "White paper or canvas"
 msgstr "白い紙またはキャンバス"
 
-#: src/components/color/CompareMixtureDrawer.tsx:237
+#: src/components/color/CompareMixtureDrawer.tsx:224
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:226
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
@@ -3012,11 +3011,11 @@ msgstr "画像はお使いのデバイス上で処理され、接続したクラ
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "ログイン情報が確認できませんでした。もう一度サインインしてください。"
 
-#: src/components/color/CompareMixtureDrawer.tsx:220
+#: src/components/color/CompareMixtureDrawer.tsx:207
 msgid "Your mix"
 msgstr "混ぜた色"
 
-#: src/components/color/CompareMixtureDrawer.tsx:262
+#: src/components/color/CompareMixtureDrawer.tsx:249
 msgid "Your mix is close to the target"
 msgstr "混ぜた色はターゲットカラーに近いです"
 

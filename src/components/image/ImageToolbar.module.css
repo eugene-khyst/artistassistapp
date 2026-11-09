@@ -1,0 +1,21 @@
+.actions {
+  position: relative;
+  flex: 1 1 0;
+  min-width: var(--ant-control-height);
+}
+
+.toolbar > :not(.actions),
+.actions > * {
+  flex-shrink: 0;
+}
+
+.collapsed {
+  position: absolute !important;
+  inset-inline-end: 0;
+  visibility: hidden;
+}
+
+.collapsed,
+.collapsed * {
+  transition: none !important;
+}

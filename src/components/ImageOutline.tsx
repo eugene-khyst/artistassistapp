@@ -16,34 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  BulbOutlined,
-  DownloadOutlined,
-  MoreOutlined,
-  PrinterOutlined,
-  TableOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
+import {BulbOutlined, TableOutlined, VideoCameraOutlined} from '@ant-design/icons';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {
-  App,
-  Button,
-  Divider,
-  Dropdown,
-  Flex,
-  Form,
-  Grid,
-  Popover,
-  Space,
-  Tooltip,
-  Typography,
-} from 'antd';
+import {App, Flex, Form, Grid, Typography} from 'antd';
 import {clsx} from 'clsx';
-import {type ReactNode, useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {DEFAULT_GRID_SETTINGS, setGrid} from '@/components/grid/grid';
 import {GridControls} from '@/components/grid/GridControls';
-import {ImageSaveButton} from '@/components/image/ImageSaveButton';
+import {ImageToolbar} from '@/components/image/ImageToolbar';
 import {ImageViewSelector} from '@/components/image/ImageViewSelector';
 import {LightboxOverlay} from '@/components/lightbox/LightboxOverlay';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
@@ -201,9 +182,6 @@ export function ImageOutline() {
   };
 
   const handleSaveClick = () => {
-    if (!outlineImage || isShowingOriginal) {
-      return;
-    }
     void zoomableImageCanvas?.saveAsImage(getFilename(selectedImageFile, 'outline'));
   };
 
@@ -219,24 +197,6 @@ export function ImageOutline() {
     setSelectedModelId(SOBEL_EDGE_DETECTION_MODEL_ID);
   };
 
-  const popupRender = useCallback(
-    (menu: ReactNode) => (
-      <div className="u-popup-panel">
-        {menu}
-        <Divider className="u-m-0" />
-        <GridControls
-          orientation="vertical"
-          size={0}
-          className={styles['dropdownGridControls']}
-          gridDrawingMode={gridDrawingMode}
-          defaultGridSettings={defaultGridSettings}
-          disableable
-        />
-      </div>
-    ),
-    [gridDrawingMode]
-  );
-
   if (!selectedImageFile) {
     return <EmptyImage />;
   }
@@ -249,134 +209,75 @@ export function ImageOutline() {
     >
       <div className="u-tab-view">
         <Flex vertical className="u-tab-toolbar">
-          <Space wrap className="u-flex">
-            <Form.Item
-              label={screens.sm ? <Trans>Mode</Trans> : null}
-              labelCol={{className: 'u-pb-0'}}
-              className="u-mb-0"
-              validateStatus={access === Access.Denied ? 'warning' : undefined}
-            >
-              <OnnxModelSelect
-                aria-label={t`Mode`}
-                models={models}
-                value={modelId}
-                onChange={selectModel}
-                className="u-narrow-select"
-              />
-            </Form.Item>
-            <ImageViewSelector
-              isShowingOriginal={isShowingOriginal}
-              resultLabel={<Trans>Outline</Trans>}
-              onChange={setIsShowingOriginal}
-              disabled={!outlineImage}
-            />
-            {screens.sm && (
-              <>
-                <Tooltip
-                  title={<Trans>Enter lightbox mode to trace the outline through your paper</Trans>}
-                >
-                  <Button
-                    icon={<BulbOutlined />}
-                    onClick={() => {
-                      void handleLightboxClick();
-                    }}
+          <ImageToolbar
+            extraContent={{
+              before: (
+                <>
+                  <Form.Item
+                    label={screens.sm ? <Trans>Mode</Trans> : null}
+                    labelCol={{className: 'u-pb-0'}}
+                    className="u-mb-0"
+                    validateStatus={access === Access.Denied ? 'warning' : undefined}
                   >
-                    <Trans>Lightbox</Trans>
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  title={<Trans>View the outline over the live camera to trace in AR</Trans>}
-                >
-                  <Button
-                    type={isArMode ? 'primary' : 'default'}
-                    icon={<VideoCameraOutlined />}
-                    onClick={() => {
-                      void handleArToggle();
-                    }}
-                  >
-                    {isArMode ? <Trans>Exit AR</Trans> : <Trans>AR</Trans>}
-                  </Button>
-                </Tooltip>
-                {screens.md && (
-                  <>
-                    <Popover
-                      trigger="click"
-                      forceRender
-                      content={
-                        <GridControls
-                          orientation="vertical"
-                          size="small"
-                          gridDrawingMode={gridDrawingMode}
-                          defaultGridSettings={defaultGridSettings}
-                          disableable
-                        />
-                      }
-                    >
-                      <Button icon={<TableOutlined />}>
-                        <Trans>Grid</Trans>
-                      </Button>
-                    </Popover>
-                    <Button
-                      icon={<PrinterOutlined />}
-                      onClick={handlePrintClick}
-                      disabled={isShowingOriginal}
-                    >
-                      <Trans>Print</Trans>
-                    </Button>
-                    <ImageSaveButton onSave={handleSaveClick} disabled={isShowingOriginal} />
-                  </>
-                )}
-              </>
-            )}
-            {!screens.md && (
-              <Dropdown
-                trigger={['click']}
-                menu={{
-                  items: [
-                    ...(!screens.sm
-                      ? [
-                          {
-                            key: 'lightbox',
-                            label: <Trans>Light box</Trans>,
-                            title: t`Enter lightbox mode to trace the outline through your paper.`,
-                            icon: <BulbOutlined />,
-                            onClick: () => {
-                              void handleLightboxClick();
-                            },
-                          },
-                          {
-                            key: 'ar',
-                            label: isArMode ? t`Exit AR` : t`AR`,
-                            title: t`View the outline over the live camera to trace in AR.`,
-                            icon: <VideoCameraOutlined />,
-                            onClick: () => {
-                              void handleArToggle();
-                            },
-                          },
-                        ]
-                      : []),
-                    {
-                      key: 'print',
-                      label: <Trans>Print</Trans>,
-                      icon: <PrinterOutlined />,
-                      onClick: handlePrintClick,
-                      disabled: isShowingOriginal,
-                    },
-                    {
-                      key: 'save',
-                      label: <Trans>Save</Trans>,
-                      icon: <DownloadOutlined />,
-                      onClick: handleSaveClick,
-                      disabled: isShowingOriginal,
-                    },
-                  ],
-                }}
-                popupRender={popupRender}
-              >
-                <Button icon={<MoreOutlined />} aria-label={t`More actions`} />
-              </Dropdown>
-            )}
-          </Space>
+                    <OnnxModelSelect
+                      aria-label={t`Mode`}
+                      models={models}
+                      value={modelId}
+                      onChange={selectModel}
+                      className="u-narrow-select"
+                    />
+                  </Form.Item>
+                  <ImageViewSelector
+                    isShowingOriginal={isShowingOriginal}
+                    resultLabel={<Trans>Outline</Trans>}
+                    compact={!screens.sm}
+                    onChange={setIsShowingOriginal}
+                    disabled={!outlineImage}
+                  />
+                </>
+              ),
+            }}
+            actions={[
+              {
+                key: 'lightbox',
+                label: <Trans>Lightbox</Trans>,
+                icon: <BulbOutlined />,
+                tooltip: t`Enter lightbox mode to trace the outline through your paper`,
+                onClick: () => {
+                  void handleLightboxClick();
+                },
+              },
+              {
+                key: 'ar',
+                label: isArMode ? <Trans>Exit AR</Trans> : <Trans>AR</Trans>,
+                icon: <VideoCameraOutlined />,
+                type: isArMode ? 'primary' : 'default',
+                tooltip: t`View the outline over the live camera to trace in AR`,
+                onClick: () => {
+                  void handleArToggle();
+                },
+              },
+              {
+                key: 'grid',
+                label: <Trans>Grid</Trans>,
+                icon: <TableOutlined />,
+                panel: (
+                  <GridControls
+                    orientation="vertical"
+                    size="small"
+                    gridDrawingMode={gridDrawingMode}
+                    defaultGridSettings={defaultGridSettings}
+                    disableable
+                  />
+                ),
+              },
+            ]}
+            imageActions={{
+              print: handlePrintClick,
+              save: handleSaveClick,
+              disabled: !outlineImage || isShowingOriginal,
+            }}
+          />
           {access === Access.Denied ? (
             <Typography.Text type="warning">
               <Trans>Selected mode is available only to paid Patreon members</Trans>

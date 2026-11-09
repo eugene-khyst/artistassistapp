@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Trans} from '@lingui/react/macro';
-import {Checkbox, Form, Select, Space} from 'antd';
+import {Trans, useLingui} from '@lingui/react/macro';
+import {Checkbox, Form, Grid, Select, Space} from 'antd';
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 import type {DefaultOptionType as SelectOptionType} from 'antd/es/select';
 import type {SpaceProps} from 'antd/lib';
@@ -53,6 +53,12 @@ export function GridControls({
   const saveAppSettings = useAppStore(state => state.saveAppSettings);
 
   const tab: TabKey = use(TabContext);
+
+  const screens = Grid.useBreakpoint();
+
+  const {t} = useLingui();
+
+  const isLabeled: boolean = props.orientation === 'vertical' || !!screens.sm;
 
   const savedSettings = useMemo<GridSettings>(
     () => ({...DEFAULT_GRID_SETTINGS, ...defaultGridSettings, ...grids?.[tab]}),
@@ -128,11 +134,12 @@ export function GridControls({
         </Form.Item>
       )}
       <Form.Item
-        label={<Trans>Grid</Trans>}
+        label={isLabeled ? <Trans>Grid</Trans> : null}
         labelCol={{className: 'u-pb-0'}}
         className={styles['formItem']}
       >
         <Select
+          aria-label={t`Grid`}
           value={gridMode}
           onChange={handleModeChange}
           options={gridOptions}
@@ -141,18 +148,23 @@ export function GridControls({
       </Form.Item>
       {gridMode === GridMode.Square ? (
         <Form.Item
-          label={<Trans>Cells</Trans>}
+          label={isLabeled ? <Trans>Cells</Trans> : null}
           labelCol={{className: 'u-pb-0'}}
           tooltip={<Trans>Number of cells on the smaller side (vertical or horizontal)</Trans>}
           className={styles['formItem']}
         >
-          <Select value={gridSize} onChange={handleSizeChange} options={SQUARE_GRID_SIZE_OPTIONS} />
+          <Select
+            aria-label={t`Cells`}
+            value={gridSize}
+            onChange={handleSizeChange}
+            options={SQUARE_GRID_SIZE_OPTIONS}
+          />
         </Form.Item>
       ) : (
         <Form.Item
           label={<Trans>Diagonals</Trans>}
           labelCol={{className: 'u-pb-0'}}
-          tooltip={<Trans>Show or hide diagonal lines</Trans>}
+          tooltip={isLabeled ? <Trans>Show or hide diagonal lines</Trans> : undefined}
           className={styles['formItem']}
         >
           <Checkbox checked={gridDiagonals} onChange={handleDiagonalsChange} />

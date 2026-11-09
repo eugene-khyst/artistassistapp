@@ -17,7 +17,7 @@
  */
 
 import {Trans} from '@lingui/react/macro';
-import {Segmented} from 'antd';
+import {Segmented, Select} from 'antd';
 import type {ReactNode} from 'react';
 
 enum ImageView {
@@ -30,6 +30,7 @@ interface ImageViewSelectorProps {
   resultLabel: ReactNode;
   onChange: (isShowingOriginal: boolean) => void;
   disabled?: boolean;
+  compact?: boolean;
 }
 
 export function ImageViewSelector({
@@ -37,18 +38,31 @@ export function ImageViewSelector({
   resultLabel,
   onChange,
   disabled,
+  compact,
 }: Readonly<ImageViewSelectorProps>) {
-  return (
+  const options = [
+    {value: ImageView.Original, label: <Trans>Original</Trans>},
+    {value: ImageView.Result, label: resultLabel},
+  ];
+  const value = isShowingOriginal ? ImageView.Original : ImageView.Result;
+  const handleChange = (view: ImageView) => {
+    onChange(view === ImageView.Original);
+  };
+
+  return compact ? (
+    <Select<ImageView>
+      options={options}
+      value={value}
+      onChange={handleChange}
+      disabled={disabled}
+      popupMatchSelectWidth={false}
+    />
+  ) : (
     <Segmented<ImageView>
       className="u-w-fit"
-      options={[
-        {value: ImageView.Original, label: <Trans>Original</Trans>},
-        {value: ImageView.Result, label: resultLabel},
-      ]}
-      value={isShowingOriginal ? ImageView.Original : ImageView.Result}
-      onChange={value => {
-        onChange(value === ImageView.Original);
-      }}
+      options={options}
+      value={value}
+      onChange={handleChange}
       disabled={disabled}
     />
   );

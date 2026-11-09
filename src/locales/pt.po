@@ -68,7 +68,7 @@ msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows e <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:97
-#: src/components/color/CompareMixtureDrawer.tsx:224
+#: src/components/color/CompareMixtureDrawer.tsx:211
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> de correspondência"
 
@@ -156,7 +156,7 @@ msgstr "Tinta acrílica"
 msgid "Add a color mixture to the palette"
 msgstr "Adicione uma mistura de cores à paleta"
 
-#: src/components/color/CompareMixtureDrawer.tsx:246
+#: src/components/color/CompareMixtureDrawer.tsx:233
 msgid "Add a little more:"
 msgstr "Adicione um pouco mais:"
 
@@ -256,8 +256,7 @@ msgstr "Aplique menos pressão para tornar a camada de lápis aquarela mais tran
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Aplique traços desta cor e da cor da subcamada em uma <0>proporção {ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageOutline.tsx:252
 msgid "AR"
 msgstr "AR"
 
@@ -412,7 +411,7 @@ msgstr "Por correspondência"
 msgid "By name"
 msgstr "Por nome"
 
-#: src/components/ImageOutline.tsx:152
+#: src/components/ImageOutline.tsx:133
 msgid "Camera access is required for AR tracing"
 msgstr "É necessário acesso à câmera para decalcar em AR"
 
@@ -438,7 +437,8 @@ msgstr "Cancelar uma assinatura paga"
 msgid "Cannot use copied image"
 msgstr "Não é possível usar imagem copiada"
 
-#: src/components/grid/GridControls.tsx:144
+#: src/components/grid/GridControls.tsx:151
+#: src/components/grid/GridControls.tsx:157
 msgid "Cells"
 msgstr "Células"
 
@@ -446,7 +446,7 @@ msgstr "Células"
 msgid "Check for updates"
 msgstr "Verificar atualizações"
 
-#: src/components/color/CompareMixtureDrawer.tsx:201
+#: src/components/color/CompareMixtureDrawer.tsx:188
 msgid "Check that one square, the white point, is on the white paper or canvas and the other is on your mix. Drag a square to move it."
 msgstr "Verifique se um dos quadrados, o ponto branco, está sobre o papel ou a tela branca e o outro sobre a sua mistura. Arraste um quadrado para movê-lo."
 
@@ -458,7 +458,7 @@ msgstr "Verifique se um dos quadrados, o ponto branco, está sobre o papel ou a 
 #: src/components/image-editor/RestoreEditorControls.tsx:47
 #: src/components/image-editor/UpscaleEditorControls.tsx:48
 #: src/components/ImageChooser.tsx:73
-#: src/components/ImageOutline.tsx:103
+#: src/components/ImageOutline.tsx:84
 #: src/components/ImagePainting.tsx:79
 #: src/components/ImageStyleTransfer.tsx:129
 msgid "Check your connection and try again."
@@ -504,7 +504,7 @@ msgstr "Limpar cor unificadora"
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Clique em 🖱️ ou toque em 👆 em qualquer lugar da imagem para escolher um ponto branco."
 
-#: src/components/ImageSimplifier.tsx:134
+#: src/components/ImageSimplifier.tsx:111
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Clique em 🖱️ ou toque em 👆 em qualquer lugar da foto para escolher um ponto focal."
 
@@ -600,8 +600,8 @@ msgstr "Marcas de cores"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Os dados de cores não estão disponíveis no momento. Verifique sua conexão e tente novamente."
 
-#: src/components/ImageTonalValues.tsx:128
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:136
+#: src/components/ImageTonalValues.tsx:139
 msgid "Color map"
 msgstr "Mapa de cores"
 
@@ -661,11 +661,19 @@ msgstr "Cores necessárias"
 msgid "Colors needed for this palette"
 msgstr "Cores necessárias para esta paleta"
 
+#: src/components/ImageTonalValues.tsx:169
+msgid "Compare"
+msgstr "Comparar"
+
 #: src/components/messages.ts:44
 msgid "Compare images"
 msgstr "Comparar imagens"
 
-#: src/components/color/CompareMixtureDrawer.tsx:152
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:54
+msgid "Compare tonal values"
+msgstr "Comparar valores tonais"
+
+#: src/components/color/CompareMixtureDrawer.tsx:151
 #: src/components/color/PaletteColorMixtureCard.tsx:181
 msgid "Compare your mix"
 msgstr "Compare sua mistura"
@@ -755,7 +763,7 @@ msgstr "Não foi possível exportar o backup"
 msgid "Could not import backup"
 msgstr "Não foi possível importar o backup"
 
-#: src/components/color/CompareMixtureDrawer.tsx:186
+#: src/components/file/PhotoPicker.tsx:44
 msgid "Could not open this photo. Choose another one."
 msgstr "Não foi possível abrir esta foto. Escolha outra."
 
@@ -901,7 +909,7 @@ msgstr "Determine a melhor imagem por comparação aos pares"
 msgid "Diagnostics"
 msgstr "Diagnóstico"
 
-#: src/components/grid/GridControls.tsx:153
+#: src/components/grid/GridControls.tsx:165
 msgid "Diagonals"
 msgstr "Diagonais"
 
@@ -1029,13 +1037,9 @@ msgstr "Digite um nome"
 msgid "Enter a valid email"
 msgstr "Insira um e-mail válido"
 
-#: src/components/ImageOutline.tsx:276
+#: src/components/ImageOutline.tsx:245
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "Ative o modo mesa de luz para decalcar o contorno através do papel"
-
-#: src/components/ImageOutline.tsx:341
-msgid "Enter lightbox mode to trace the outline through your paper."
-msgstr "Ative o modo mesa de luz para decalcar o contorno através do papel."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
@@ -1061,8 +1065,11 @@ msgstr "Temperatura estimada da fonte de luz em Kelvin com a qual a imagem foi t
 msgid "Etching"
 msgstr "Água-forte"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageTonalValues.tsx:179
+msgid "Exit"
+msgstr "Sair"
+
+#: src/components/ImageOutline.tsx:252
 msgid "Exit AR"
 msgstr "Sair do AR"
 
@@ -1138,7 +1145,7 @@ msgstr "Mais fino"
 msgid "Finish editing"
 msgstr "Finalizar a edição"
 
-#: src/components/ImageSimplifier.tsx:141
+#: src/components/ImageSimplifier.tsx:138
 msgid "Focal point instructions"
 msgstr "Instruções para o ponto focal"
 
@@ -1183,8 +1190,9 @@ msgstr "Ir para a guia {label}"
 msgid "Gouache"
 msgstr "Guache"
 
-#: src/components/grid/GridControls.tsx:131
-#: src/components/ImageOutline.tsx:316
+#: src/components/grid/GridControls.tsx:137
+#: src/components/grid/GridControls.tsx:142
+#: src/components/ImageOutline.tsx:262
 #: src/components/messages.ts:37
 msgid "Grid"
 msgstr "Grade"
@@ -1214,7 +1222,7 @@ msgstr "Horizontal"
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Se você não salvar, as alterações no conjunto de cores poderão ser perdidas."
 
-#: src/components/color/CompareMixtureDrawer.tsx:168
+#: src/components/color/CompareMixtureDrawer.tsx:167
 msgid "If your paint changes color as it dries, wait until the swatch is dry. Take the photo in even light, with some of the white paper or canvas showing and no shadows or glare."
 msgstr "Se a tinta mudar de cor ao secar, espere até que a amostra esteja seca. Tire a foto com iluminação uniforme, deixando parte do papel ou da tela branca visível, sem sombras nem reflexos."
 
@@ -1340,15 +1348,11 @@ msgstr "Menos"
 msgid "Light"
 msgstr "Leve"
 
-#: src/components/ImageOutline.tsx:340
-msgid "Light box"
-msgstr "Mesa de luz"
-
 #: src/components/messages.ts:86
 msgid "Light tones"
 msgstr "Tons claros"
 
-#: src/components/ImageOutline.tsx:284
+#: src/components/ImageOutline.tsx:243
 msgid "Lightbox"
 msgstr "Mesa de luz"
 
@@ -1385,7 +1389,7 @@ msgstr "Resultado do login não recebido"
 msgid "Loose painting"
 msgstr "Pintura solta"
 
-#: src/components/ImagePainting.tsx:182
+#: src/components/ImagePainting.tsx:198
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "A pintura solta está disponível apenas para membros pagantes do Patreon"
 
@@ -1469,7 +1473,7 @@ msgstr "Misture a tinta com um medium acrílico para veladura para aplicar uma c
 msgid "Mix this color into every mixture."
 msgstr "Misture esta cor em cada mistura."
 
-#: src/components/color/CompareMixtureDrawer.tsx:256
+#: src/components/color/CompareMixtureDrawer.tsx:243
 msgid "Mix well and take a new photo"
 msgstr "Misture bem e tire uma nova foto"
 
@@ -1486,8 +1490,8 @@ msgstr "Mistura"
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:69
 #: src/components/image-editor/RestoreEditorControls.tsx:64
 #: src/components/image-editor/SharpenEditorControls.tsx:62
-#: src/components/ImageOutline.tsx:254
-#: src/components/ImageOutline.tsx:260
+#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:223
 msgid "Mode"
 msgstr "Modo"
 
@@ -1496,11 +1500,10 @@ msgid "More"
 msgstr "Mais"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
+#: src/components/image/ImageToolbar.tsx:217
 #: src/components/ImageColorPicker.tsx:354
 #: src/components/ImageLimitedPalette.tsx:181
-#: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "Mais ações"
 
@@ -1508,11 +1511,11 @@ msgstr "Mais ações"
 msgid "Mosaic"
 msgstr "Mosaico"
 
-#: src/components/color/CompareMixtureDrawer.tsx:138
+#: src/components/color/CompareMixtureDrawer.tsx:137
 msgid "Move the squares so they do not overlap"
 msgstr "Mova os quadrados para que não se sobreponham"
 
-#: src/components/color/CompareMixtureDrawer.tsx:136
+#: src/components/color/CompareMixtureDrawer.tsx:135
 msgid "Move the white point to the white paper or canvas, away from shadows and glare"
 msgstr "Mova o ponto branco para o papel ou a tela branca, longe de sombras e reflexos"
 
@@ -1563,7 +1566,7 @@ msgstr "Novo tamanho: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "Próxima data de cobrança"
 
-#: src/components/color/CompareMixtureDrawer.tsx:264
+#: src/components/color/CompareMixtureDrawer.tsx:251
 msgid "No better match found. Check the swatch and lighting."
 msgstr "Não foi encontrada uma correspondência melhor. Verifique a amostra e a iluminação."
 
@@ -1605,11 +1608,11 @@ msgstr "Não sabe qual e-mail o Patreon usa? Verifique suas <0>configurações b
 msgid "Nothing to share"
 msgstr "Nada para compartilhar"
 
-#: src/components/ImagePainting.tsx:128
+#: src/components/ImagePainting.tsx:132
 msgid "Number of brush strokes in the painting"
 msgstr "Número de pinceladas na pintura"
 
-#: src/components/grid/GridControls.tsx:146
+#: src/components/grid/GridControls.tsx:153
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Número de células no lado menor (vertical ou horizontal)"
 
@@ -1640,7 +1643,7 @@ msgstr "Apenas um número limitado de marcas de cores está disponível na vers�
 #: src/components/image-editor/ColorizeEditorControls.tsx:92
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:81
 #: src/components/image-editor/RestoreEditorControls.tsx:76
-#: src/components/ImageOutline.tsx:388
+#: src/components/ImageOutline.tsx:289
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Apenas um número limitado de modos está disponível na versão gratuita"
 
@@ -1678,7 +1681,7 @@ msgid "Or select from your recent photos"
 msgstr "Ou selecione entre suas fotos recentes"
 
 #: src/components/image-editor/CropEditorControls.tsx:37
-#: src/components/image/ImageViewSelector.tsx:45
+#: src/components/image/ImageViewSelector.tsx:44
 msgid "Original"
 msgstr "Original"
 
@@ -1686,7 +1689,7 @@ msgstr "Original"
 msgid "Original color temperature (K)"
 msgstr "Temperatura de cor original (K)"
 
-#: src/components/ImageOutline.tsx:269
+#: src/components/ImageOutline.tsx:232
 #: src/components/messages.ts:36
 msgid "Outline"
 msgstr "Contorno"
@@ -1700,15 +1703,15 @@ msgid "over"
 msgstr "sobre"
 
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImagePainting.tsx:163
+#: src/components/ImagePainting.tsx:178
 msgid "Paint"
 msgstr "Pintar"
 
-#: src/components/color/CompareMixtureDrawer.tsx:162
+#: src/components/color/CompareMixtureDrawer.tsx:161
 msgid "Paint a swatch of your mix at full strength on white paper or canvas. For a wash or thin layer, test the mix before you thin it."
 msgstr "Pinte uma amostra da sua mistura sem diluir sobre papel branco ou tela branca. Para uma aguada ou uma camada fina, teste a mistura antes de diluí-la."
 
-#: src/components/ImagePainting.tsx:168
+#: src/components/ImagePainting.tsx:162
 msgid "Painting"
 msgstr "Pintura"
 
@@ -1773,7 +1776,7 @@ msgstr "Foto indisponível. Restaure-a do seu armazenamento na nuvem ou selecion
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "Foto indisponível. Selecione o original novamente para repará-la."
 
-#: src/components/color/CompareMixtureDrawer.tsx:197
+#: src/components/color/CompareMixtureDrawer.tsx:184
 msgid "Photo with squares on the white point and your mix"
 msgstr "Foto com quadrados sobre o ponto branco e sua mistura"
 
@@ -1838,11 +1841,8 @@ msgstr "Pressione o botão <0>Adicionar à paleta</0> ao lado da mistura de core
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:64
-#: src/components/image/ImageActions.tsx:85
+#: src/components/image/ImageToolbar.tsx:127
 #: src/components/ImageLimitedPalette.tsx:146
-#: src/components/ImageOutline.tsx:324
-#: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
 #: src/components/palette/PaletteGrid.tsx:142
 #: src/components/print/PrintImageDrawer.tsx:183
@@ -2033,10 +2033,9 @@ msgstr "Saturação (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
+#: src/components/image/ImageToolbar.tsx:140
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "Salvar"
 
@@ -2171,7 +2170,7 @@ msgstr "Selecionar idioma"
 msgid "Select part"
 msgstr "Selecione a parte"
 
-#: src/components/color/CompareMixtureDrawer.tsx:179
+#: src/components/file/PhotoPicker.tsx:37
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "Selecionar foto"
@@ -2211,7 +2210,7 @@ msgstr "Selecione sua técnica artística, as marcas de cores e as cores com as 
 #: src/components/image-editor/ColorizeEditorControls.tsx:86
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:75
 #: src/components/image-editor/RestoreEditorControls.tsx:70
-#: src/components/ImageOutline.tsx:382
+#: src/components/ImageOutline.tsx:283
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "O modo selecionado está disponível apenas para membros pagos do Patreon"
 
@@ -2235,8 +2234,8 @@ msgstr "Sessão expirada"
 msgid "Set as main color set"
 msgstr "Definir como conjunto de cores principal"
 
-#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
+#: src/components/image/ImageToolbar.tsx:151
 #: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "Definir como referência"
@@ -2299,7 +2298,7 @@ msgstr "Mostrar todas"
 msgid "Show areas on the photo that match this color."
 msgstr "Mostra as áreas da foto que correspondem a esta cor."
 
-#: src/components/grid/GridControls.tsx:123
+#: src/components/grid/GridControls.tsx:129
 msgid "Show grid"
 msgstr "Mostrar grade"
 
@@ -2315,7 +2314,7 @@ msgstr "Mostrar fotos mais antigas"
 msgid "Show on photo"
 msgstr "Mostrar na foto"
 
-#: src/components/grid/GridControls.tsx:155
+#: src/components/grid/GridControls.tsx:167
 msgid "Show or hide diagonal lines"
 msgstr "Mostrar ou ocultar linhas diagonais"
 
@@ -2335,7 +2334,7 @@ msgstr "Similaridade"
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "O modo de similaridade compara as cores de destino e sugeridas. No modo Mistura, as partes da cor que compõem a mistura são exibidas."
 
-#: src/components/ImageSimplifier.tsx:118
+#: src/components/ImageSimplifier.tsx:123
 msgid "Simplified"
 msgstr "Simplificada"
 
@@ -2400,7 +2399,7 @@ msgstr "Curva de refletância espectral"
 msgid "Speed"
 msgstr "Velocidade"
 
-#: src/components/grid/GridControls.tsx:113
+#: src/components/grid/GridControls.tsx:119
 msgid "Square cells"
 msgstr "Células quadradas"
 
@@ -2428,8 +2427,8 @@ msgstr "Uso de armazenamento"
 msgid "Strength"
 msgstr "Intensidade"
 
-#: src/components/ImagePainting.tsx:126
-#: src/components/ImagePainting.tsx:144
+#: src/components/ImagePainting.tsx:130
+#: src/components/ImagePainting.tsx:148
 msgid "Strokes"
 msgstr "Pinceladas"
 
@@ -2476,7 +2475,11 @@ msgstr "Sincronizar com {label}"
 msgid "Take a photo"
 msgstr "Tirar uma foto"
 
-#: src/components/ImageSimplifier.tsx:110
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:67
+msgid "Take a photo of your painting to compare its tonal values with the reference photo. Use even light with no shadows or glare."
+msgstr "Tire uma foto da sua pintura para comparar seus valores tonais com os da foto de referência. Use iluminação uniforme, sem sombras nem reflexos."
+
+#: src/components/ImageSimplifier.tsx:112
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Toque em 👆 em qualquer lugar da foto para escolher um ponto focal."
 
@@ -2484,7 +2487,7 @@ msgstr "Toque em 👆 em qualquer lugar da foto para escolher um ponto focal."
 msgid "Taped margin width around the painting area"
 msgstr "Largura da margem com fita ao redor da área de pintura"
 
-#: src/components/color/CompareMixtureDrawer.tsx:145
+#: src/components/color/CompareMixtureDrawer.tsx:144
 #: src/components/ImageColorPicker.tsx:321
 #: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
@@ -2639,7 +2642,7 @@ msgstr "Para usar o recurso {tabLabel}, selecione uma foto de referência"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "Para usar o recurso {tabLabel}, selecione uma técnica artística suportada e as cores para pintar"
 
-#: src/components/ImageTonalValues.tsx:140
+#: src/components/ImageTonalValues.tsx:151
 #: src/components/messages.ts:33
 msgid "Tonal values"
 msgstr "Valores tonais"
@@ -2709,7 +2712,7 @@ msgstr "Não foi possível carregar os modos de colorização"
 msgid "Unable to load the object removal model"
 msgstr "Não foi possível carregar o modelo de remoção de objetos"
 
-#: src/components/ImageOutline.tsx:102
+#: src/components/ImageOutline.tsx:83
 msgid "Unable to load the outline modes"
 msgstr "Não foi possível carregar os modos de contorno"
 
@@ -2851,13 +2854,9 @@ msgstr "Vertical"
 msgid "Vienna Secession"
 msgstr "Secessão de Viena"
 
-#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:255
 msgid "View the outline over the live camera to trace in AR"
 msgstr "Veja o contorno sobre a imagem da câmera para decalcar em AR"
-
-#: src/components/ImageOutline.tsx:350
-msgid "View the outline over the live camera to trace in AR."
-msgstr "Veja o contorno sobre a imagem da câmera para decalcar em AR."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
 #: src/components/cloud/CloudFeedbackHandler.tsx:216
@@ -2919,7 +2918,7 @@ msgid "White"
 msgstr "Branco"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
-#: src/components/ImageTonalValues.tsx:157
+#: src/components/ImageTonalValues.tsx:187
 msgid "White balance"
 msgstr "Balanço de branco"
 
@@ -2927,7 +2926,7 @@ msgstr "Balanço de branco"
 msgid "White paper or canvas"
 msgstr "Papel branco ou tela"
 
-#: src/components/color/CompareMixtureDrawer.tsx:237
+#: src/components/color/CompareMixtureDrawer.tsx:224
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:226
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
@@ -3012,11 +3011,11 @@ msgstr "Suas imagens são processadas no seu dispositivo e enviadas apenas para 
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Suas credenciais de login não puderam ser verificadas. Faça login novamente."
 
-#: src/components/color/CompareMixtureDrawer.tsx:220
+#: src/components/color/CompareMixtureDrawer.tsx:207
 msgid "Your mix"
 msgstr "Sua mistura"
 
-#: src/components/color/CompareMixtureDrawer.tsx:262
+#: src/components/color/CompareMixtureDrawer.tsx:249
 msgid "Your mix is close to the target"
 msgstr "Sua mistura está próxima da cor-alvo"
 

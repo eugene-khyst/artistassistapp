@@ -16,10 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Space} from 'antd';
-
 import {GridControls} from '@/components/grid/GridControls';
-import {ImageActions} from '@/components/image/ImageActions';
+import {ImageToolbar} from '@/components/image/ImageToolbar';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {useImageActions} from '@/hooks/useImageActions';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
@@ -54,10 +52,11 @@ export function ImageGrid() {
   return (
     <LoadingIndicator loading={isOriginalImageLoading}>
       <div className="u-tab-view">
-        <Space className="u-tab-toolbar">
-          <GridControls gridDrawingMode={gridDrawingMode} />
-          <ImageActions collapseBelow="sm" onPrint={print} onSave={save} />
-        </Space>
+        <ImageToolbar
+          className="u-tab-toolbar"
+          extraContent={{before: <GridControls gridDrawingMode={gridDrawingMode} />}}
+          imageActions={{print, save}}
+        />
         <canvas ref={canvasRef} className={styles['previewCanvas']} />
       </div>
     </LoadingIndicator>

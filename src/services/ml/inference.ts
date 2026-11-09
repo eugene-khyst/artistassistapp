@@ -24,7 +24,23 @@ import {WebGpuInferenceError} from '@/services/ml/errors';
 import {type Float32Tensor, getFloat32TensorTransferables} from '@/services/ml/tensor';
 
 env.wasm.proxy = false;
-env.wasm.wasmPaths = {wasm: new URL(ortWasmUrl, self.location.href).href};
+if (import.meta.env.DEV) {
+  env.wasm.wasmPaths = {wasm: new URL(ortWasmUrl, self.location.href).href};
+}
+
+async function fetchOrtWasm(): Promise<Blob> {
+  const {href} = new URL(`${ortWasmUrl}.gz.bin`, self.location.href);
+  const response = await fetch(href);
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} while fetching ${href}`);
+  }
+  const wasm = response.body!.pipeThrough(new DecompressionStream('gzip'));
+  return await new Response(wasm, {headers: {'Content-Type': 'application/wasm'}}).blob();
+}
+
+function isOrtWasmLoaded(): boolean {
+  return !!env.wasm.wasmPaths;
+}
 
 const SESSION_OPTIONS: InferenceSession.SessionOptions = {
   graphOptimizationLevel: 'all',
@@ -67,6 +83,20 @@ export class InferenceRunner {
   private usesWebGpu = false;
 
   async createInferenceSession(modelBuffer: Uint8Array, webGpuEnabled: boolean): Promise<void> {
+    if (isOrtWasmLoaded()) {
+      await this.createSession(modelBuffer, webGpuEnabled);
+      return;
+    }
+    const wasmUrl = URL.createObjectURL(await fetchOrtWasm());
+    env.wasm.wasmPaths = {wasm: wasmUrl};
+    try {
+      await this.createSession(modelBuffer, webGpuEnabled);
+    } finally {
+      URL.revokeObjectURL(wasmUrl);
+    }
+  }
+
+  private async createSession(modelBuffer: Uint8Array, webGpuEnabled: boolean): Promise<void> {
     this.usesWebGpu = false;
     if (webGpuEnabled && (await isWebGpuUsable())) {
       try {

@@ -4,6 +4,7 @@ import path from 'node:path';
 import {lingui} from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import {defineConfig} from 'vite';
+import {compression} from 'vite-plugin-compression2';
 import {VitePWA} from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 
@@ -31,7 +32,7 @@ function parseHeaders(): Record<string, string> {
 
 const globalHeaders = parseHeaders();
 
-export default defineConfig(({mode}) => ({
+export default defineConfig(({command, mode}) => ({
   plugins: [
     react({
       plugins: [['@lingui/swc-plugin', {}]],
@@ -49,6 +50,13 @@ export default defineConfig(({mode}) => ({
         globIgnores: ['**/node_modules/**/*', '**/404.html', '**/cleanup.html', '**/*.wasm'],
       },
     }),
+    command === 'build' &&
+      compression({
+        include: /ort-wasm-simd-threaded\.asyncify-[^/]+\.wasm$/,
+        algorithms: ['gzip'],
+        filename: '[path][base].gz.bin',
+        deleteOriginalAssets: true,
+      }),
   ],
 
   resolve: {
@@ -66,7 +74,7 @@ export default defineConfig(({mode}) => ({
   },
 
   build: {
-    target: ['chrome124', 'edge124', 'firefox105', 'safari16.4', 'ios16.4'],
+    target: ['chrome124', 'edge124', 'firefox113', 'safari16.4', 'ios16.4'],
     sourcemap: mode === 'development',
     chunkSizeWarningLimit: maxFileSize,
     rolldownOptions: {

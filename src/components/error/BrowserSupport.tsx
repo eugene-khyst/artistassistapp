@@ -37,6 +37,7 @@ const BROWSER_FEATURES: Record<string, boolean> = {
   createImageBitmap: typeof createImageBitmap !== 'undefined',
   webgl2: isWebGl2Supported(),
   indexedDB: typeof indexedDB !== 'undefined',
+  DecompressionStream: typeof DecompressionStream !== 'undefined',
 };
 
 const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(Boolean);
@@ -69,7 +70,7 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                   <AndroidOutlined className="u-text-tertiary" /> Android
                   <ul>
                     <li>Chrome 124+</li>
-                    <li>Firefox 105+</li>
+                    <li>Firefox 113+</li>
                     <li>Opera 110+</li>
                     <li>Samsung Internet 27+</li>
                   </ul>
@@ -105,7 +106,7 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                   <ul>
                     <li>Chrome 124+</li>
                     <li>Edge 124+</li>
-                    <li>Firefox 105+</li>
+                    <li>Firefox 113+</li>
                     <li>Opera 110+</li>
                   </ul>
                 </li>

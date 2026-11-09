@@ -23,11 +23,10 @@ import {
   ResizeImage,
 } from '@eugene-khyst/artistassistapp-image-processing/utils/graphics';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {Alert, Col, Drawer, Flex, Grid, Row, Space, Typography} from 'antd';
+import {Col, Drawer, Flex, Grid, Row, Space, Typography} from 'antd';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
-import {FileSelect} from '@/components/file/FileSelect';
-import {TakePhoto} from '@/components/file/TakePhoto';
+import {PhotoPicker} from '@/components/file/PhotoPicker';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
 import {
   type ComparisonRegions,
@@ -173,19 +172,7 @@ export function CompareMixtureDrawer({colorMixture, onClose}: Readonly<Props>) {
             </Typography.Text>
           </Flex>
         )}
-        <Flex gap="small">
-          <TakePhoto onChange={selectPhoto} loading={loading} />
-          <FileSelect type="default" onChange={selectPhoto} loading={loading}>
-            <Trans>Select photo</Trans>
-          </FileSelect>
-        </Flex>
-        {photoError && (
-          <Alert
-            type="error"
-            showIcon
-            title={<Trans>Could not open this photo. Choose another one.</Trans>}
-          />
-        )}
+        <PhotoPicker loading={loading} error={photoError} onChange={selectPhoto} />
         {photo ? (
           <Row gutter={[24, 16]}>
             <Col xs={24} md={12}>

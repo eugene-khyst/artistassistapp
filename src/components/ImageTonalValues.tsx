@@ -23,15 +23,16 @@ import {
   TONAL_VALUE_HEXES,
 } from '@eugene-khyst/artistassistapp-image-processing/tonal-values';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {type CheckboxOptionType, Flex, Grid, Radio, type RadioChangeEvent, Space} from 'antd';
+import {type CheckboxOptionType, Flex, Grid, Radio, type RadioChangeEvent} from 'antd';
 import {clsx} from 'clsx';
 import {useEffect, useState} from 'react';
 
 import {ColorSquare} from '@/components/color/ColorSquare';
 import {GradientRect} from '@/components/color/GradientRect';
-import {ImageActions} from '@/components/image/ImageActions';
+import {ImageToolbar} from '@/components/image/ImageToolbar';
 import {LoadingIndicator} from '@/components/loading/LoadingIndicator';
 import {TONAL_VALUE_LABELS} from '@/components/messages';
+import {CompareTonalValuesDrawer} from '@/components/tonal-value/CompareTonalValuesDrawer';
 import {useConfirmDiscardImageEdits} from '@/hooks/useConfirmDiscardImageEdits';
 import {useImageActions} from '@/hooks/useImageActions';
 import {useZoomableImageCanvas} from '@/hooks/useZoomableImageCanvas';
@@ -48,11 +49,13 @@ export function ImageTonalValues() {
   const selectedImageFile = useAppStore(state => state.selectedImageFile);
   const originalImage = useAppStore(state => state.originalImage);
   const tonalImages = useAppStore(state => state.tonalImages);
+  const comparisonTonalImages = useAppStore(state => state.comparisonTonalImages);
 
   const isOriginalImageLoading = useAppStore(state => state.isOriginalImageLoading);
   const isTonalImagesLoading = useAppStore(state => state.isTonalImagesLoading);
   const setActiveTabKey = useAppStore(state => state.setActiveTabKey);
   const editImageWithAutoWhiteBalance = useAppStore(state => state.editImageWithAutoWhiteBalance);
+  const clearComparisonTonalImages = useAppStore(state => state.clearComparisonTonalImages);
 
   const confirmDiscardImageEdits = useConfirmDiscardImageEdits();
 
@@ -60,17 +63,20 @@ export function ImageTonalValues() {
 
   const {t} = useLingui();
 
+  const [tonalImageIndex, setTonalImageIndex] = useState<number>(() =>
+    TONAL_IMAGE_VALUES.indexOf(TonalValue.Shadows)
+  );
+  const [compareDrawerOriginalImage, setCompareDrawerOriginalImage] = useState<ImageBitmap | null>(
+    null
+  );
+
   const {ref: tonalValuesCanvasRef, zoomableImageCanvas: tonalValuesCanvas} =
     useZoomableImageCanvas(NOOP_CANVAS_MODE_SUPPLIER, tonalImages, selectedImageFile?.digest);
 
-  const {ref: originalCanvasRef} = useZoomableImageCanvas(
+  const {ref: comparisonCanvasRef} = useZoomableImageCanvas(
     NOOP_CANVAS_MODE_SUPPLIER,
-    originalImage,
-    selectedImageFile?.digest
-  );
-
-  const [tonalImageIndex, setTonalImageIndex] = useState<number>(() =>
-    TONAL_IMAGE_VALUES.indexOf(TonalValue.Shadows)
+    comparisonTonalImages[tonalImageIndex] ?? originalImage,
+    comparisonTonalImages[0] ?? selectedImageFile?.digest
   );
 
   useEffect(() => {
@@ -78,6 +84,8 @@ export function ImageTonalValues() {
   }, [tonalValuesCanvas, tonalImageIndex]);
 
   const isLoading: boolean = isOriginalImageLoading || isTonalImagesLoading;
+
+  const isComparing: boolean = comparisonTonalImages.length > 0;
 
   const handleTonalValueChange = (e: RadioChangeEvent) => {
     setTonalImageIndex(e.target.value as number);
@@ -135,38 +143,66 @@ export function ImageTonalValues() {
   return (
     <LoadingIndicator loading={isLoading}>
       <div className="u-tab-view">
-        <Space align="center" className="u-tab-toolbar">
-          <Radio.Group
-            aria-label={t`Tonal values`}
-            options={toneOptions}
-            value={tonalImageIndex}
-            onChange={handleTonalValueChange}
-            optionType="button"
-            buttonStyle="solid"
-            className={
-              screens[collapseBelow] ? undefined : clsx('u-flex', styles['toneRadioGroupCompact'])
-            }
-          />
-          <ImageActions
-            collapseBelow="sm"
-            onPrint={handlePrintClick}
-            onSave={save}
-            extraActions={[
+        <ImageToolbar
+          className="u-tab-toolbar"
+          extraContent={{
+            before: (
+              <Radio.Group
+                aria-label={t`Tonal values`}
+                options={toneOptions}
+                value={tonalImageIndex}
+                onChange={handleTonalValueChange}
+                optionType="button"
+                buttonStyle="solid"
+                className={
+                  screens[collapseBelow]
+                    ? undefined
+                    : clsx('u-flex', styles['toneRadioGroupCompact'])
+                }
+              />
+            ),
+          }}
+          actions={[
+            [
               {
-                key: 'white-balance',
-                label: <Trans>White balance</Trans>,
+                key: 'compare',
+                label: <Trans>Compare</Trans>,
+                type: isComparing ? 'primary' : 'default',
                 onClick: () => {
-                  void handleWhiteBalanceClick();
+                  setCompareDrawerOriginalImage(originalImage);
                 },
               },
-            ]}
-          />
-        </Space>
+              ...(isComparing
+                ? [
+                    {
+                      key: 'exit-compare',
+                      label: <Trans>Exit</Trans>,
+                      onClick: clearComparisonTonalImages,
+                    },
+                  ]
+                : []),
+            ],
+            {
+              key: 'white-balance',
+              label: <Trans>White balance</Trans>,
+              onClick: () => {
+                void handleWhiteBalanceClick();
+              },
+            },
+          ]}
+          imageActions={{print: handlePrintClick, save}}
+        />
         <div className={styles['previews']}>
           <canvas ref={tonalValuesCanvasRef} className={styles['previewCanvas']} />
-          <canvas ref={originalCanvasRef} className={styles['previewCanvas']} />
+          <canvas ref={comparisonCanvasRef} className={styles['previewCanvas']} />
         </div>
       </div>
+      <CompareTonalValuesDrawer
+        open={compareDrawerOriginalImage === originalImage}
+        onClose={() => {
+          setCompareDrawerOriginalImage(null);
+        }}
+      />
     </LoadingIndicator>
   );
 }

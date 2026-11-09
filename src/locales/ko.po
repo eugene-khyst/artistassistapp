@@ -68,7 +68,7 @@ msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows 및 <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:97
-#: src/components/color/CompareMixtureDrawer.tsx:224
+#: src/components/color/CompareMixtureDrawer.tsx:211
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> 일치"
 
@@ -156,7 +156,7 @@ msgstr "아크릴 물감"
 msgid "Add a color mixture to the palette"
 msgstr "팔레트에 색상 혼합 추가"
 
-#: src/components/color/CompareMixtureDrawer.tsx:246
+#: src/components/color/CompareMixtureDrawer.tsx:233
 msgid "Add a little more:"
 msgstr "조금 더 추가하세요:"
 
@@ -256,8 +256,7 @@ msgstr "수채 색연필 레이어를 더 투명하게 만들려면 필압을 �
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "이 색상과 언더레이어 색상의 획을 <0>{ratioText} 비율</0>로 적용"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageOutline.tsx:252
 msgid "AR"
 msgstr "AR"
 
@@ -412,7 +411,7 @@ msgstr "일치도별"
 msgid "By name"
 msgstr "이름별"
 
-#: src/components/ImageOutline.tsx:152
+#: src/components/ImageOutline.tsx:133
 msgid "Camera access is required for AR tracing"
 msgstr "AR 트레이싱에는 카메라 액세스 권한이 필요합니다"
 
@@ -438,7 +437,8 @@ msgstr "유료 멤버십 취소"
 msgid "Cannot use copied image"
 msgstr "복사된 이미지를 사용할 수 없습니다"
 
-#: src/components/grid/GridControls.tsx:144
+#: src/components/grid/GridControls.tsx:151
+#: src/components/grid/GridControls.tsx:157
 msgid "Cells"
 msgstr "셀"
 
@@ -446,7 +446,7 @@ msgstr "셀"
 msgid "Check for updates"
 msgstr "업데이트 확인"
 
-#: src/components/color/CompareMixtureDrawer.tsx:201
+#: src/components/color/CompareMixtureDrawer.tsx:188
 msgid "Check that one square, the white point, is on the white paper or canvas and the other is on your mix. Drag a square to move it."
 msgstr "한쪽 사각형인 화이트 포인트는 흰 종이나 캔버스 위에, 다른 사각형은 혼합한 물감 위에 있는지 확인하세요. 사각형을 드래그하면 이동할 수 있습니다."
 
@@ -458,7 +458,7 @@ msgstr "한쪽 사각형인 화이트 포인트는 흰 종이나 캔버스 위�
 #: src/components/image-editor/RestoreEditorControls.tsx:47
 #: src/components/image-editor/UpscaleEditorControls.tsx:48
 #: src/components/ImageChooser.tsx:73
-#: src/components/ImageOutline.tsx:103
+#: src/components/ImageOutline.tsx:84
 #: src/components/ImagePainting.tsx:79
 #: src/components/ImageStyleTransfer.tsx:129
 msgid "Check your connection and try again."
@@ -504,7 +504,7 @@ msgstr "통합 색상 지우기"
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "이미지의 아무 곳이나 🖱️ 클릭하거나 👆 탭하여 화이트 포인트를 선택하세요."
 
-#: src/components/ImageSimplifier.tsx:134
+#: src/components/ImageSimplifier.tsx:111
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point."
 msgstr "초점을 선택하려면 사진의 아무 곳이나 🖱️을 클릭하거나 👆을 탭하세요."
 
@@ -600,8 +600,8 @@ msgstr "색상 브랜드"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "현재 색상 데이터를 사용할 수 없습니다. 연결을 확인하고 다시 시도하세요."
 
-#: src/components/ImageTonalValues.tsx:128
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:136
+#: src/components/ImageTonalValues.tsx:139
 msgid "Color map"
 msgstr "색상 맵"
 
@@ -661,11 +661,19 @@ msgstr "필요한 색상"
 msgid "Colors needed for this palette"
 msgstr "이 팔레트에 필요한 색상"
 
+#: src/components/ImageTonalValues.tsx:169
+msgid "Compare"
+msgstr "비교"
+
 #: src/components/messages.ts:44
 msgid "Compare images"
 msgstr "이미지 비교"
 
-#: src/components/color/CompareMixtureDrawer.tsx:152
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:54
+msgid "Compare tonal values"
+msgstr "명암 단계 비교"
+
+#: src/components/color/CompareMixtureDrawer.tsx:151
 #: src/components/color/PaletteColorMixtureCard.tsx:181
 msgid "Compare your mix"
 msgstr "혼합한 색상 비교"
@@ -755,7 +763,7 @@ msgstr "백업을 내보낼 수 없습니다"
 msgid "Could not import backup"
 msgstr "백업을 가져올 수 없습니다"
 
-#: src/components/color/CompareMixtureDrawer.tsx:186
+#: src/components/file/PhotoPicker.tsx:44
 msgid "Could not open this photo. Choose another one."
 msgstr "이 사진을 열 수 없습니다. 다른 사진을 선택하세요."
 
@@ -901,7 +909,7 @@ msgstr "쌍별 비교를 통해 최상의 이미지 결정"
 msgid "Diagnostics"
 msgstr "진단"
 
-#: src/components/grid/GridControls.tsx:153
+#: src/components/grid/GridControls.tsx:165
 msgid "Diagonals"
 msgstr "대각선"
 
@@ -1029,13 +1037,9 @@ msgstr "이름을 입력하세요"
 msgid "Enter a valid email"
 msgstr "유효한 이메일을 입력하세요"
 
-#: src/components/ImageOutline.tsx:276
+#: src/components/ImageOutline.tsx:245
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "종이를 대고 윤곽선을 따라 그리려면 라이트박스 모드로 전환하세요"
-
-#: src/components/ImageOutline.tsx:341
-msgid "Enter lightbox mode to trace the outline through your paper."
-msgstr "종이를 대고 윤곽선을 따라 그리려면 라이트박스 모드로 전환하세요."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
@@ -1061,8 +1065,11 @@ msgstr "이미지를 촬영한 광원의 예상 온도(켈빈)"
 msgid "Etching"
 msgstr "에칭"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageTonalValues.tsx:179
+msgid "Exit"
+msgstr "종료"
+
+#: src/components/ImageOutline.tsx:252
 msgid "Exit AR"
 msgstr "AR 종료"
 
@@ -1138,7 +1145,7 @@ msgstr "최정밀"
 msgid "Finish editing"
 msgstr "편집 완료"
 
-#: src/components/ImageSimplifier.tsx:141
+#: src/components/ImageSimplifier.tsx:138
 msgid "Focal point instructions"
 msgstr "초점 안내"
 
@@ -1183,8 +1190,9 @@ msgstr "{label} 탭으로 이동"
 msgid "Gouache"
 msgstr "구아슈"
 
-#: src/components/grid/GridControls.tsx:131
-#: src/components/ImageOutline.tsx:316
+#: src/components/grid/GridControls.tsx:137
+#: src/components/grid/GridControls.tsx:142
+#: src/components/ImageOutline.tsx:262
 #: src/components/messages.ts:37
 msgid "Grid"
 msgstr "그리드"
@@ -1214,7 +1222,7 @@ msgstr "가로"
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "저장하지 않으면 색상 세트에 대한 변경 사항이 손실될 수 있습니다."
 
-#: src/components/color/CompareMixtureDrawer.tsx:168
+#: src/components/color/CompareMixtureDrawer.tsx:167
 msgid "If your paint changes color as it dries, wait until the swatch is dry. Take the photo in even light, with some of the white paper or canvas showing and no shadows or glare."
 msgstr "물감이 마르면서 색이 변한다면 색상 견본이 마를 때까지 기다리세요. 흰 종이나 캔버스의 일부가 보이도록 하고, 그림자나 빛 반사가 없는 고른 조명 아래에서 사진을 찍으세요."
 
@@ -1340,15 +1348,11 @@ msgstr "간략히"
 msgid "Light"
 msgstr "경량"
 
-#: src/components/ImageOutline.tsx:340
-msgid "Light box"
-msgstr "라이트박스"
-
 #: src/components/messages.ts:86
 msgid "Light tones"
 msgstr "밝은 톤"
 
-#: src/components/ImageOutline.tsx:284
+#: src/components/ImageOutline.tsx:243
 msgid "Lightbox"
 msgstr "라이트박스"
 
@@ -1385,7 +1389,7 @@ msgstr "로그인 결과를 받지 못함"
 msgid "Loose painting"
 msgstr "러프 페인팅"
 
-#: src/components/ImagePainting.tsx:182
+#: src/components/ImagePainting.tsx:198
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "러프 페인팅은 유료 Patreon 회원만 사용할 수 있습니다"
 
@@ -1469,7 +1473,7 @@ msgstr "아크릴 글레이징 미디엄과 물감을 섞어 더 얇고 투명�
 msgid "Mix this color into every mixture."
 msgstr "이 색상을 모든 혼합에 섞습니다."
 
-#: src/components/color/CompareMixtureDrawer.tsx:256
+#: src/components/color/CompareMixtureDrawer.tsx:243
 msgid "Mix well and take a new photo"
 msgstr "잘 섞은 뒤 새 사진을 찍으세요"
 
@@ -1486,8 +1490,8 @@ msgstr "혼합"
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:69
 #: src/components/image-editor/RestoreEditorControls.tsx:64
 #: src/components/image-editor/SharpenEditorControls.tsx:62
-#: src/components/ImageOutline.tsx:254
-#: src/components/ImageOutline.tsx:260
+#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:223
 msgid "Mode"
 msgstr "모드"
 
@@ -1496,11 +1500,10 @@ msgid "More"
 msgstr "더 보기"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
+#: src/components/image/ImageToolbar.tsx:217
 #: src/components/ImageColorPicker.tsx:354
 #: src/components/ImageLimitedPalette.tsx:181
-#: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "추가 작업"
 
@@ -1508,11 +1511,11 @@ msgstr "추가 작업"
 msgid "Mosaic"
 msgstr "모자이크"
 
-#: src/components/color/CompareMixtureDrawer.tsx:138
+#: src/components/color/CompareMixtureDrawer.tsx:137
 msgid "Move the squares so they do not overlap"
 msgstr "사각형이 겹치지 않도록 이동하세요"
 
-#: src/components/color/CompareMixtureDrawer.tsx:136
+#: src/components/color/CompareMixtureDrawer.tsx:135
 msgid "Move the white point to the white paper or canvas, away from shadows and glare"
 msgstr "화이트 포인트를 흰 종이나 캔버스 위의 그림자나 빛 반사가 없는 곳으로 이동하세요"
 
@@ -1563,7 +1566,7 @@ msgstr "새 크기: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "다음 결제일"
 
-#: src/components/color/CompareMixtureDrawer.tsx:264
+#: src/components/color/CompareMixtureDrawer.tsx:251
 msgid "No better match found. Check the swatch and lighting."
 msgstr "더 잘 일치하는 조합을 찾지 못했습니다. 색상 견본과 조명을 확인하세요."
 
@@ -1605,11 +1608,11 @@ msgstr "Patreon에서 어떤 이메일을 사용하는지 잘 모르겠나요? <
 msgid "Nothing to share"
 msgstr "공유할 항목이 없습니다"
 
-#: src/components/ImagePainting.tsx:128
+#: src/components/ImagePainting.tsx:132
 msgid "Number of brush strokes in the painting"
 msgstr "그림의 붓 터치 수"
 
-#: src/components/grid/GridControls.tsx:146
+#: src/components/grid/GridControls.tsx:153
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "더 작은 쪽의 셀 수(수직 또는 수평)"
 
@@ -1640,7 +1643,7 @@ msgstr "무료 버전에서는 제한된 수의 색상 브랜드만 사용할 �
 #: src/components/image-editor/ColorizeEditorControls.tsx:92
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:81
 #: src/components/image-editor/RestoreEditorControls.tsx:76
-#: src/components/ImageOutline.tsx:388
+#: src/components/ImageOutline.tsx:289
 msgid "Only a limited number of modes are available in the free version"
 msgstr "무료 버전에서는 제한된 수의 모드만 사용할 수 있습니다"
 
@@ -1678,7 +1681,7 @@ msgid "Or select from your recent photos"
 msgstr "또는 최근 사진에서 선택"
 
 #: src/components/image-editor/CropEditorControls.tsx:37
-#: src/components/image/ImageViewSelector.tsx:45
+#: src/components/image/ImageViewSelector.tsx:44
 msgid "Original"
 msgstr "원본"
 
@@ -1686,7 +1689,7 @@ msgstr "원본"
 msgid "Original color temperature (K)"
 msgstr "원본 색온도(K)"
 
-#: src/components/ImageOutline.tsx:269
+#: src/components/ImageOutline.tsx:232
 #: src/components/messages.ts:36
 msgid "Outline"
 msgstr "윤곽선"
@@ -1700,15 +1703,15 @@ msgid "over"
 msgstr "위에"
 
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImagePainting.tsx:163
+#: src/components/ImagePainting.tsx:178
 msgid "Paint"
 msgstr "그림으로 변환"
 
-#: src/components/color/CompareMixtureDrawer.tsx:162
+#: src/components/color/CompareMixtureDrawer.tsx:161
 msgid "Paint a swatch of your mix at full strength on white paper or canvas. For a wash or thin layer, test the mix before you thin it."
 msgstr "혼합한 물감을 희석하지 않은 상태로 흰 종이나 캔버스에 칠해 색상 견본을 만드세요. 워시 기법을 사용하거나 얇게 칠할 때도 물감을 희석하기 전에 혼합 색상을 확인하세요."
 
-#: src/components/ImagePainting.tsx:168
+#: src/components/ImagePainting.tsx:162
 msgid "Painting"
 msgstr "그림"
 
@@ -1773,7 +1776,7 @@ msgstr "사진을 볼 수 없습니다. 클라우드 저장소에서 복원하�
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "사진을 볼 수 없습니다. 복구하려면 원본을 다시 선택하세요."
 
-#: src/components/color/CompareMixtureDrawer.tsx:197
+#: src/components/color/CompareMixtureDrawer.tsx:184
 msgid "Photo with squares on the white point and your mix"
 msgstr "화이트 포인트와 혼합한 물감 위에 사각형이 표시된 사진"
 
@@ -1838,11 +1841,8 @@ msgstr "마음에 드는 색상 혼합 옆의 <0>팔레트에 추가</0> 버튼�
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:64
-#: src/components/image/ImageActions.tsx:85
+#: src/components/image/ImageToolbar.tsx:127
 #: src/components/ImageLimitedPalette.tsx:146
-#: src/components/ImageOutline.tsx:324
-#: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
 #: src/components/palette/PaletteGrid.tsx:142
 #: src/components/print/PrintImageDrawer.tsx:183
@@ -2033,10 +2033,9 @@ msgstr "채도(%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
+#: src/components/image/ImageToolbar.tsx:140
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "저장"
 
@@ -2171,7 +2170,7 @@ msgstr "언어 선택"
 msgid "Select part"
 msgstr "비율 선택"
 
-#: src/components/color/CompareMixtureDrawer.tsx:179
+#: src/components/file/PhotoPicker.tsx:37
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "사진 선택"
@@ -2211,7 +2210,7 @@ msgstr "미술 재료, 색상 브랜드, 그림에 사용할 색상을 선택한
 #: src/components/image-editor/ColorizeEditorControls.tsx:86
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:75
 #: src/components/image-editor/RestoreEditorControls.tsx:70
-#: src/components/ImageOutline.tsx:382
+#: src/components/ImageOutline.tsx:283
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "선택한 모드는 유료 Patreon 회원만 사용할 수 있습니다"
 
@@ -2235,8 +2234,8 @@ msgstr "세션 만료됨"
 msgid "Set as main color set"
 msgstr "기본 색상 세트로 설정"
 
-#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
+#: src/components/image/ImageToolbar.tsx:151
 #: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "참조로 설정"
@@ -2299,7 +2298,7 @@ msgstr "모두 표시"
 msgid "Show areas on the photo that match this color."
 msgstr "사진에서 이 색상과 일치하는 영역을 표시합니다."
 
-#: src/components/grid/GridControls.tsx:123
+#: src/components/grid/GridControls.tsx:129
 msgid "Show grid"
 msgstr "그리드 표시"
 
@@ -2315,7 +2314,7 @@ msgstr "이전 사진 보기"
 msgid "Show on photo"
 msgstr "사진에 표시"
 
-#: src/components/grid/GridControls.tsx:155
+#: src/components/grid/GridControls.tsx:167
 msgid "Show or hide diagonal lines"
 msgstr "대각선 표시 또는 숨기기"
 
@@ -2335,7 +2334,7 @@ msgstr "유사성"
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "유사성 모드는 대상 색상과 제안된 색상을 비교합니다. 혼합 모드에서는 혼합을 구성하는 색상의 비율이 표시됩니다."
 
-#: src/components/ImageSimplifier.tsx:118
+#: src/components/ImageSimplifier.tsx:123
 msgid "Simplified"
 msgstr "단순화됨"
 
@@ -2400,7 +2399,7 @@ msgstr "스펙트럼 반사율 곡선"
 msgid "Speed"
 msgstr "속도"
 
-#: src/components/grid/GridControls.tsx:113
+#: src/components/grid/GridControls.tsx:119
 msgid "Square cells"
 msgstr "정사각형 셀"
 
@@ -2428,8 +2427,8 @@ msgstr "저장 공간 사용량"
 msgid "Strength"
 msgstr "강도"
 
-#: src/components/ImagePainting.tsx:126
-#: src/components/ImagePainting.tsx:144
+#: src/components/ImagePainting.tsx:130
+#: src/components/ImagePainting.tsx:148
 msgid "Strokes"
 msgstr "붓 터치"
 
@@ -2476,7 +2475,11 @@ msgstr "{label} 동기화"
 msgid "Take a photo"
 msgstr "사진 촬영"
 
-#: src/components/ImageSimplifier.tsx:110
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:67
+msgid "Take a photo of your painting to compare its tonal values with the reference photo. Use even light with no shadows or glare."
+msgstr "자신의 그림을 촬영하여 참조 사진과 명암 단계를 비교하세요. 그림자나 빛 반사가 없는 고른 조명 아래에서 촬영하세요."
+
+#: src/components/ImageSimplifier.tsx:112
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "초점을 선택하려면 사진의 아무 곳이나 👆을 탭하세요."
 
@@ -2484,7 +2487,7 @@ msgstr "초점을 선택하려면 사진의 아무 곳이나 👆을 탭하세�
 msgid "Taped margin width around the painting area"
 msgstr "그림 영역 주위에 테이프로 붙인 여백 너비"
 
-#: src/components/color/CompareMixtureDrawer.tsx:145
+#: src/components/color/CompareMixtureDrawer.tsx:144
 #: src/components/ImageColorPicker.tsx:321
 #: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
@@ -2639,7 +2642,7 @@ msgstr "{tabLabel} 기능을 사용하려면 참조 사진을 선택하세요"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "{tabLabel} 기능을 사용하려면 지원되는 미술 재료와 그림에 사용할 색상을 선택하세요"
 
-#: src/components/ImageTonalValues.tsx:140
+#: src/components/ImageTonalValues.tsx:151
 #: src/components/messages.ts:33
 msgid "Tonal values"
 msgstr "명암 단계"
@@ -2709,7 +2712,7 @@ msgstr "색 입히기 모드를 로드할 수 없습니다"
 msgid "Unable to load the object removal model"
 msgstr "개체 제거 모델을 로드할 수 없습니다"
 
-#: src/components/ImageOutline.tsx:102
+#: src/components/ImageOutline.tsx:83
 msgid "Unable to load the outline modes"
 msgstr "윤곽선 모드를 로드할 수 없습니다"
 
@@ -2851,13 +2854,9 @@ msgstr "세로"
 msgid "Vienna Secession"
 msgstr "빈 분리파"
 
-#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:255
 msgid "View the outline over the live camera to trace in AR"
 msgstr "AR로 따라 그리려면 라이브 카메라 위에 윤곽선을 표시하세요"
-
-#: src/components/ImageOutline.tsx:350
-msgid "View the outline over the live camera to trace in AR."
-msgstr "AR로 따라 그리려면 라이브 카메라 위에 윤곽선을 표시하세요."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
 #: src/components/cloud/CloudFeedbackHandler.tsx:216
@@ -2919,7 +2918,7 @@ msgid "White"
 msgstr "흰색"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
-#: src/components/ImageTonalValues.tsx:157
+#: src/components/ImageTonalValues.tsx:187
 msgid "White balance"
 msgstr "화이트 밸런스"
 
@@ -2927,7 +2926,7 @@ msgstr "화이트 밸런스"
 msgid "White paper or canvas"
 msgstr "흰 종이 또는 캔버스"
 
-#: src/components/color/CompareMixtureDrawer.tsx:237
+#: src/components/color/CompareMixtureDrawer.tsx:224
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:226
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
@@ -3012,11 +3011,11 @@ msgstr "이미지는 기기에서 처리되며 연결한 클라우드 저장소�
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "로그인 자격 증명을 확인할 수 없습니다. 다시 로그인하세요."
 
-#: src/components/color/CompareMixtureDrawer.tsx:220
+#: src/components/color/CompareMixtureDrawer.tsx:207
 msgid "Your mix"
 msgstr "혼합한 색상"
 
-#: src/components/color/CompareMixtureDrawer.tsx:262
+#: src/components/color/CompareMixtureDrawer.tsx:249
 msgid "Your mix is close to the target"
 msgstr "혼합한 색상이 대상 색상에 가깝습니다"
 

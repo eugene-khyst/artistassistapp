@@ -68,7 +68,7 @@ msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows og <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:97
-#: src/components/color/CompareMixtureDrawer.tsx:224
+#: src/components/color/CompareMixtureDrawer.tsx:211
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText} %</0> match"
 
@@ -156,7 +156,7 @@ msgstr "Akrylmaling"
 msgid "Add a color mixture to the palette"
 msgstr "Tilføj en farveblanding til paletten"
 
-#: src/components/color/CompareMixtureDrawer.tsx:246
+#: src/components/color/CompareMixtureDrawer.tsx:233
 msgid "Add a little more:"
 msgstr "Tilsæt lidt mere:"
 
@@ -256,8 +256,7 @@ msgstr "Påfør mindre tryk for at gøre akvarelblyantlaget mere gennemsigtigt"
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Påfør streger af denne farve og underlagsfarven i et <0>{ratioText}-forhold</0>"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageOutline.tsx:252
 msgid "AR"
 msgstr "AR"
 
@@ -412,7 +411,7 @@ msgstr "Efter match"
 msgid "By name"
 msgstr "Efter navn"
 
-#: src/components/ImageOutline.tsx:152
+#: src/components/ImageOutline.tsx:133
 msgid "Camera access is required for AR tracing"
 msgstr "Kameraadgang er påkrævet for at aftegne i AR"
 
@@ -438,7 +437,8 @@ msgstr "Opsig et betalende medlemskab"
 msgid "Cannot use copied image"
 msgstr "Kan ikke bruge kopieret billede"
 
-#: src/components/grid/GridControls.tsx:144
+#: src/components/grid/GridControls.tsx:151
+#: src/components/grid/GridControls.tsx:157
 msgid "Cells"
 msgstr "Celler"
 
@@ -446,7 +446,7 @@ msgstr "Celler"
 msgid "Check for updates"
 msgstr "Søg efter opdateringer"
 
-#: src/components/color/CompareMixtureDrawer.tsx:201
+#: src/components/color/CompareMixtureDrawer.tsx:188
 msgid "Check that one square, the white point, is on the white paper or canvas and the other is on your mix. Drag a square to move it."
 msgstr "Kontrollér, at den ene firkant, hvidpunktet, er på det hvide papir eller lærred, og den anden på din blanding. Træk i en firkant for at flytte den."
 
@@ -458,7 +458,7 @@ msgstr "Kontrollér, at den ene firkant, hvidpunktet, er på det hvide papir ell
 #: src/components/image-editor/RestoreEditorControls.tsx:47
 #: src/components/image-editor/UpscaleEditorControls.tsx:48
 #: src/components/ImageChooser.tsx:73
-#: src/components/ImageOutline.tsx:103
+#: src/components/ImageOutline.tsx:84
 #: src/components/ImagePainting.tsx:79
 #: src/components/ImageStyleTransfer.tsx:129
 msgid "Check your connection and try again."
@@ -504,7 +504,7 @@ msgstr "Ryd samlende farve"
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Klik 🖱️ eller tryk 👆 hvor som helst på billedet for at vælge et hvidpunkt."
 
-#: src/components/ImageSimplifier.tsx:134
+#: src/components/ImageSimplifier.tsx:111
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Klik 🖱️ eller tryk 👆 hvor som helst på billedet for at vælge et fokuspunkt."
 
@@ -600,8 +600,8 @@ msgstr "Farvemærker"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Farvedata er i øjeblikket ikke tilgængelige. Tjek din forbindelse, og prøv igen."
 
-#: src/components/ImageTonalValues.tsx:128
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:136
+#: src/components/ImageTonalValues.tsx:139
 msgid "Color map"
 msgstr "Farvekort"
 
@@ -661,11 +661,19 @@ msgstr "Nødvendige farver"
 msgid "Colors needed for this palette"
 msgstr "Farver, der skal bruges til denne palet"
 
+#: src/components/ImageTonalValues.tsx:169
+msgid "Compare"
+msgstr "Sammenlign"
+
 #: src/components/messages.ts:44
 msgid "Compare images"
 msgstr "Sammenlign billeder"
 
-#: src/components/color/CompareMixtureDrawer.tsx:152
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:54
+msgid "Compare tonal values"
+msgstr "Sammenlign toneværdier"
+
+#: src/components/color/CompareMixtureDrawer.tsx:151
 #: src/components/color/PaletteColorMixtureCard.tsx:181
 msgid "Compare your mix"
 msgstr "Sammenlign din blanding"
@@ -755,7 +763,7 @@ msgstr "Kunne ikke eksportere sikkerhedskopien"
 msgid "Could not import backup"
 msgstr "Kunne ikke importere sikkerhedskopien"
 
-#: src/components/color/CompareMixtureDrawer.tsx:186
+#: src/components/file/PhotoPicker.tsx:44
 msgid "Could not open this photo. Choose another one."
 msgstr "Kunne ikke åbne dette foto. Vælg et andet."
 
@@ -901,7 +909,7 @@ msgstr "Bestem det bedste billede ved parvis sammenligning"
 msgid "Diagnostics"
 msgstr "Diagnostik"
 
-#: src/components/grid/GridControls.tsx:153
+#: src/components/grid/GridControls.tsx:165
 msgid "Diagonals"
 msgstr "Diagonaler"
 
@@ -1029,13 +1037,9 @@ msgstr "Indtast et navn"
 msgid "Enter a valid email"
 msgstr "Indtast en gyldig e-mail"
 
-#: src/components/ImageOutline.tsx:276
+#: src/components/ImageOutline.tsx:245
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "Gå i lightbox-tilstand for at aftegne omridset gennem dit papir"
-
-#: src/components/ImageOutline.tsx:341
-msgid "Enter lightbox mode to trace the outline through your paper."
-msgstr "Gå i lightbox-tilstand for at aftegne omridset gennem dit papir."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
@@ -1061,8 +1065,11 @@ msgstr "Estimeret temperatur i kelvin for den lyskilde, billedet blev taget med"
 msgid "Etching"
 msgstr "Ætsning"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageTonalValues.tsx:179
+msgid "Exit"
+msgstr "Afslut"
+
+#: src/components/ImageOutline.tsx:252
 msgid "Exit AR"
 msgstr "Forlad AR"
 
@@ -1138,7 +1145,7 @@ msgstr "Fineste"
 msgid "Finish editing"
 msgstr "Afslut redigering"
 
-#: src/components/ImageSimplifier.tsx:141
+#: src/components/ImageSimplifier.tsx:138
 msgid "Focal point instructions"
 msgstr "Vejledning til fokuspunkt"
 
@@ -1183,8 +1190,9 @@ msgstr "Gå til fanen {label}"
 msgid "Gouache"
 msgstr "Gouache"
 
-#: src/components/grid/GridControls.tsx:131
-#: src/components/ImageOutline.tsx:316
+#: src/components/grid/GridControls.tsx:137
+#: src/components/grid/GridControls.tsx:142
+#: src/components/ImageOutline.tsx:262
 #: src/components/messages.ts:37
 msgid "Grid"
 msgstr "Gitter"
@@ -1214,7 +1222,7 @@ msgstr "Vandret"
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Hvis du ikke gemmer, kan ændringer af farvesættet gå tabt."
 
-#: src/components/color/CompareMixtureDrawer.tsx:168
+#: src/components/color/CompareMixtureDrawer.tsx:167
 msgid "If your paint changes color as it dries, wait until the swatch is dry. Take the photo in even light, with some of the white paper or canvas showing and no shadows or glare."
 msgstr "Hvis din maling ændrer farve, når den tørrer, skal du vente, til farveprøven er tør. Tag fotoet i jævnt lys, så noget af det hvide papir eller lærred er synligt, uden skygger eller genskin."
 
@@ -1340,15 +1348,11 @@ msgstr "Mindre"
 msgid "Light"
 msgstr "Let"
 
-#: src/components/ImageOutline.tsx:340
-msgid "Light box"
-msgstr "Lightbox"
-
 #: src/components/messages.ts:86
 msgid "Light tones"
 msgstr "Lyse toner"
 
-#: src/components/ImageOutline.tsx:284
+#: src/components/ImageOutline.tsx:243
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1385,7 +1389,7 @@ msgstr "Login-resultat ikke modtaget"
 msgid "Loose painting"
 msgstr "Løst maleri"
 
-#: src/components/ImagePainting.tsx:182
+#: src/components/ImagePainting.tsx:198
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Løst maleri er kun tilgængeligt for betalende Patreon-medlemmer"
 
@@ -1469,7 +1473,7 @@ msgstr "Bland malingen med et akryllaseringsmiddel for at påføre et tyndere, m
 msgid "Mix this color into every mixture."
 msgstr "Bland denne farve i hver blanding."
 
-#: src/components/color/CompareMixtureDrawer.tsx:256
+#: src/components/color/CompareMixtureDrawer.tsx:243
 msgid "Mix well and take a new photo"
 msgstr "Bland godt, og tag et nyt foto"
 
@@ -1486,8 +1490,8 @@ msgstr "Blanding"
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:69
 #: src/components/image-editor/RestoreEditorControls.tsx:64
 #: src/components/image-editor/SharpenEditorControls.tsx:62
-#: src/components/ImageOutline.tsx:254
-#: src/components/ImageOutline.tsx:260
+#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:223
 msgid "Mode"
 msgstr "Tilstand"
 
@@ -1496,11 +1500,10 @@ msgid "More"
 msgstr "Mere"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
+#: src/components/image/ImageToolbar.tsx:217
 #: src/components/ImageColorPicker.tsx:354
 #: src/components/ImageLimitedPalette.tsx:181
-#: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "Flere handlinger"
 
@@ -1508,11 +1511,11 @@ msgstr "Flere handlinger"
 msgid "Mosaic"
 msgstr "Mosaik"
 
-#: src/components/color/CompareMixtureDrawer.tsx:138
+#: src/components/color/CompareMixtureDrawer.tsx:137
 msgid "Move the squares so they do not overlap"
 msgstr "Flyt firkanterne, så de ikke overlapper hinanden"
 
-#: src/components/color/CompareMixtureDrawer.tsx:136
+#: src/components/color/CompareMixtureDrawer.tsx:135
 msgid "Move the white point to the white paper or canvas, away from shadows and glare"
 msgstr "Flyt hvidpunktet til det hvide papir eller lærred, væk fra skygger og genskin"
 
@@ -1563,7 +1566,7 @@ msgstr "Ny størrelse: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "Næste betalingsdato"
 
-#: src/components/color/CompareMixtureDrawer.tsx:264
+#: src/components/color/CompareMixtureDrawer.tsx:251
 msgid "No better match found. Check the swatch and lighting."
 msgstr "Der blev ikke fundet et bedre match. Kontrollér farveprøven og belysningen."
 
@@ -1605,11 +1608,11 @@ msgstr "Er du ikke sikker på, hvilken e-mail Patreon bruger? Tjek dine <0>Patre
 msgid "Nothing to share"
 msgstr "Intet at dele"
 
-#: src/components/ImagePainting.tsx:128
+#: src/components/ImagePainting.tsx:132
 msgid "Number of brush strokes in the painting"
 msgstr "Antal penselstrøg i maleriet"
 
-#: src/components/grid/GridControls.tsx:146
+#: src/components/grid/GridControls.tsx:153
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Antal celler på den mindre side (lodret eller vandret)"
 
@@ -1640,7 +1643,7 @@ msgstr "Kun et begrænset antal farvemærker er tilgængelige i den gratis versi
 #: src/components/image-editor/ColorizeEditorControls.tsx:92
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:81
 #: src/components/image-editor/RestoreEditorControls.tsx:76
-#: src/components/ImageOutline.tsx:388
+#: src/components/ImageOutline.tsx:289
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Kun et begrænset antal tilstande er tilgængelige i den gratis version"
 
@@ -1678,7 +1681,7 @@ msgid "Or select from your recent photos"
 msgstr "Eller vælg blandt dine seneste billeder"
 
 #: src/components/image-editor/CropEditorControls.tsx:37
-#: src/components/image/ImageViewSelector.tsx:45
+#: src/components/image/ImageViewSelector.tsx:44
 msgid "Original"
 msgstr "Original"
 
@@ -1686,7 +1689,7 @@ msgstr "Original"
 msgid "Original color temperature (K)"
 msgstr "Oprindelig farvetemperatur (K)"
 
-#: src/components/ImageOutline.tsx:269
+#: src/components/ImageOutline.tsx:232
 #: src/components/messages.ts:36
 msgid "Outline"
 msgstr "Omrids"
@@ -1700,15 +1703,15 @@ msgid "over"
 msgstr "over"
 
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImagePainting.tsx:163
+#: src/components/ImagePainting.tsx:178
 msgid "Paint"
 msgstr "Mal"
 
-#: src/components/color/CompareMixtureDrawer.tsx:162
+#: src/components/color/CompareMixtureDrawer.tsx:161
 msgid "Paint a swatch of your mix at full strength on white paper or canvas. For a wash or thin layer, test the mix before you thin it."
 msgstr "Mal en farveprøve af din ufortyndede blanding på hvidt papir eller hvidt lærred. Til en lavering eller et tyndt lag skal du teste blandingen, før du fortynder den."
 
-#: src/components/ImagePainting.tsx:168
+#: src/components/ImagePainting.tsx:162
 msgid "Painting"
 msgstr "Maleri"
 
@@ -1773,7 +1776,7 @@ msgstr "Billedet er ikke tilgængeligt. Gendan det fra din cloud-lagring, eller 
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "Billedet er ikke tilgængeligt. Vælg originalen igen for at reparere det."
 
-#: src/components/color/CompareMixtureDrawer.tsx:197
+#: src/components/color/CompareMixtureDrawer.tsx:184
 msgid "Photo with squares on the white point and your mix"
 msgstr "Foto med firkanter på hvidpunktet og din blanding"
 
@@ -1838,11 +1841,8 @@ msgstr "Tryk på knappen <0>Tilføj til palet</0> ved siden af den farveblanding
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:64
-#: src/components/image/ImageActions.tsx:85
+#: src/components/image/ImageToolbar.tsx:127
 #: src/components/ImageLimitedPalette.tsx:146
-#: src/components/ImageOutline.tsx:324
-#: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
 #: src/components/palette/PaletteGrid.tsx:142
 #: src/components/print/PrintImageDrawer.tsx:183
@@ -2033,10 +2033,9 @@ msgstr "Mætning (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
+#: src/components/image/ImageToolbar.tsx:140
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "Gem"
 
@@ -2171,7 +2170,7 @@ msgstr "Vælg sprog"
 msgid "Select part"
 msgstr "Vælg andel"
 
-#: src/components/color/CompareMixtureDrawer.tsx:179
+#: src/components/file/PhotoPicker.tsx:37
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "Vælg foto"
@@ -2211,7 +2210,7 @@ msgstr "Vælg dit kunstmedie, farvemærker og de farver, du vil male med, og try
 #: src/components/image-editor/ColorizeEditorControls.tsx:86
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:75
 #: src/components/image-editor/RestoreEditorControls.tsx:70
-#: src/components/ImageOutline.tsx:382
+#: src/components/ImageOutline.tsx:283
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "Den valgte tilstand er kun tilgængelig for betalende Patreon-medlemmer"
 
@@ -2235,8 +2234,8 @@ msgstr "Sessionen er udløbet"
 msgid "Set as main color set"
 msgstr "Indstil som hovedfarvesæt"
 
-#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
+#: src/components/image/ImageToolbar.tsx:151
 #: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "Indstil som reference"
@@ -2299,7 +2298,7 @@ msgstr "Vis alle"
 msgid "Show areas on the photo that match this color."
 msgstr "Vis områder på billedet, der matcher denne farve."
 
-#: src/components/grid/GridControls.tsx:123
+#: src/components/grid/GridControls.tsx:129
 msgid "Show grid"
 msgstr "Vis gitter"
 
@@ -2315,7 +2314,7 @@ msgstr "Vis ældre billeder"
 msgid "Show on photo"
 msgstr "Vis på foto"
 
-#: src/components/grid/GridControls.tsx:155
+#: src/components/grid/GridControls.tsx:167
 msgid "Show or hide diagonal lines"
 msgstr "Vis eller skjul diagonale linjer"
 
@@ -2335,7 +2334,7 @@ msgstr "Lighed"
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Lighedstilstand sammenligner målet og de foreslåede farver. I blandingstilstand vises de dele af farven, der udgør blandingen."
 
-#: src/components/ImageSimplifier.tsx:118
+#: src/components/ImageSimplifier.tsx:123
 msgid "Simplified"
 msgstr "Forenklet"
 
@@ -2400,7 +2399,7 @@ msgstr "Spektral reflektanskurve"
 msgid "Speed"
 msgstr "Hastighed"
 
-#: src/components/grid/GridControls.tsx:113
+#: src/components/grid/GridControls.tsx:119
 msgid "Square cells"
 msgstr "Kvadratiske celler"
 
@@ -2428,8 +2427,8 @@ msgstr "Brug af lagerplads"
 msgid "Strength"
 msgstr "Styrke"
 
-#: src/components/ImagePainting.tsx:126
-#: src/components/ImagePainting.tsx:144
+#: src/components/ImagePainting.tsx:130
+#: src/components/ImagePainting.tsx:148
 msgid "Strokes"
 msgstr "Penselstrøg"
 
@@ -2476,7 +2475,11 @@ msgstr "Synkroniser med {label}"
 msgid "Take a photo"
 msgstr "Tag et foto"
 
-#: src/components/ImageSimplifier.tsx:110
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:67
+msgid "Take a photo of your painting to compare its tonal values with the reference photo. Use even light with no shadows or glare."
+msgstr "Tag et foto af dit maleri for at sammenligne dets toneværdier med dem i referencefotoet. Brug jævnt lys uden skygger eller genskin."
+
+#: src/components/ImageSimplifier.tsx:112
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Tryk på 👆 hvor som helst på billedet for at vælge et fokuspunkt."
 
@@ -2484,7 +2487,7 @@ msgstr "Tryk på 👆 hvor som helst på billedet for at vælge et fokuspunkt."
 msgid "Taped margin width around the painting area"
 msgstr "Bredden af den tapede margen omkring maleområdet"
 
-#: src/components/color/CompareMixtureDrawer.tsx:145
+#: src/components/color/CompareMixtureDrawer.tsx:144
 #: src/components/ImageColorPicker.tsx:321
 #: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
@@ -2639,7 +2642,7 @@ msgstr "For at bruge funktionen {tabLabel} skal du vælge et referencebillede"
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "For at bruge funktionen {tabLabel} skal du vælge understøttet kunstmedie og farver til at male med"
 
-#: src/components/ImageTonalValues.tsx:140
+#: src/components/ImageTonalValues.tsx:151
 #: src/components/messages.ts:33
 msgid "Tonal values"
 msgstr "Toneværdier"
@@ -2709,7 +2712,7 @@ msgstr "Kan ikke indlæse farvelægningstilstandene"
 msgid "Unable to load the object removal model"
 msgstr "Kan ikke indlæse objektfjernelsesmodellen"
 
-#: src/components/ImageOutline.tsx:102
+#: src/components/ImageOutline.tsx:83
 msgid "Unable to load the outline modes"
 msgstr "Kan ikke indlæse omridstilstandene"
 
@@ -2851,13 +2854,9 @@ msgstr "Lodret"
 msgid "Vienna Secession"
 msgstr "Wienersecessionen"
 
-#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:255
 msgid "View the outline over the live camera to trace in AR"
 msgstr "Se omridset over livekameraet for at aftegne i AR"
-
-#: src/components/ImageOutline.tsx:350
-msgid "View the outline over the live camera to trace in AR."
-msgstr "Se omridset over livekameraet for at aftegne i AR."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
 #: src/components/cloud/CloudFeedbackHandler.tsx:216
@@ -2919,7 +2918,7 @@ msgid "White"
 msgstr "Hvid"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
-#: src/components/ImageTonalValues.tsx:157
+#: src/components/ImageTonalValues.tsx:187
 msgid "White balance"
 msgstr "Hvidbalance"
 
@@ -2927,7 +2926,7 @@ msgstr "Hvidbalance"
 msgid "White paper or canvas"
 msgstr "Hvidt papir eller lærred"
 
-#: src/components/color/CompareMixtureDrawer.tsx:237
+#: src/components/color/CompareMixtureDrawer.tsx:224
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:226
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
@@ -3012,11 +3011,11 @@ msgstr "Dine billeder behandles på din enhed og sendes kun til den cloud-lagrin
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Dine loginoplysninger kunne ikke verificeres. Log ind igen."
 
-#: src/components/color/CompareMixtureDrawer.tsx:220
+#: src/components/color/CompareMixtureDrawer.tsx:207
 msgid "Your mix"
 msgstr "Din blanding"
 
-#: src/components/color/CompareMixtureDrawer.tsx:262
+#: src/components/color/CompareMixtureDrawer.tsx:249
 msgid "Your mix is close to the target"
 msgstr "Din blanding er tæt på målfarven"
 

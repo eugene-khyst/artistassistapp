@@ -68,7 +68,7 @@ msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows și <1/> Linux"
 
 #: src/components/color/ColorMatchCard.tsx:97
-#: src/components/color/CompareMixtureDrawer.tsx:224
+#: src/components/color/CompareMixtureDrawer.tsx:211
 msgid "<0>{matchScoreText}%</0> match"
 msgstr "<0>{matchScoreText}%</0> potrivire"
 
@@ -156,7 +156,7 @@ msgstr "Acril"
 msgid "Add a color mixture to the palette"
 msgstr "Adăugați un amestec de culori în paletă"
 
-#: src/components/color/CompareMixtureDrawer.tsx:246
+#: src/components/color/CompareMixtureDrawer.tsx:233
 msgid "Add a little more:"
 msgstr "Adăugați încă puțin:"
 
@@ -256,8 +256,7 @@ msgstr "Aplicați mai puțină presiune pentru a face stratul de creion acuarel�
 msgid "Apply strokes of this color and the underlayer color in a <0>{ratioText} ratio</0>"
 msgstr "Aplicați tușe de această culoare și de culoarea stratului de bază într-un <0>raport {ratioText}</0>"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageOutline.tsx:252
 msgid "AR"
 msgstr "AR"
 
@@ -412,7 +411,7 @@ msgstr "După potrivire"
 msgid "By name"
 msgstr "După nume"
 
-#: src/components/ImageOutline.tsx:152
+#: src/components/ImageOutline.tsx:133
 msgid "Camera access is required for AR tracing"
 msgstr "Accesul la cameră este necesar pentru trasarea AR"
 
@@ -438,7 +437,8 @@ msgstr "Anulați abonamentul plătit"
 msgid "Cannot use copied image"
 msgstr "Nu se poate folosi imaginea copiată"
 
-#: src/components/grid/GridControls.tsx:144
+#: src/components/grid/GridControls.tsx:151
+#: src/components/grid/GridControls.tsx:157
 msgid "Cells"
 msgstr "Celule"
 
@@ -446,7 +446,7 @@ msgstr "Celule"
 msgid "Check for updates"
 msgstr "Verificați dacă există actualizări"
 
-#: src/components/color/CompareMixtureDrawer.tsx:201
+#: src/components/color/CompareMixtureDrawer.tsx:188
 msgid "Check that one square, the white point, is on the white paper or canvas and the other is on your mix. Drag a square to move it."
 msgstr "Verificați dacă un pătrat, punctul alb, se află pe hârtia sau pânza albă, iar celălalt pe amestecul dumneavoastră. Trageți un pătrat pentru a-l muta."
 
@@ -458,7 +458,7 @@ msgstr "Verificați dacă un pătrat, punctul alb, se află pe hârtia sau pânz
 #: src/components/image-editor/RestoreEditorControls.tsx:47
 #: src/components/image-editor/UpscaleEditorControls.tsx:48
 #: src/components/ImageChooser.tsx:73
-#: src/components/ImageOutline.tsx:103
+#: src/components/ImageOutline.tsx:84
 #: src/components/ImagePainting.tsx:79
 #: src/components/ImageStyleTransfer.tsx:129
 msgid "Check your connection and try again."
@@ -504,7 +504,7 @@ msgstr "Ștergeți culoarea unificatoare"
 msgid "Click 🖱️ or tap 👆 anywhere in the image to choose a white point."
 msgstr "Faceți clic pe 🖱️ sau atingeți 👆 oriunde în imagine pentru a alege un punct alb."
 
-#: src/components/ImageSimplifier.tsx:134
+#: src/components/ImageSimplifier.tsx:111
 msgid "Click 🖱️ or tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Faceți clic pe 🖱️ sau atingeți 👆 oriunde în fotografie pentru a alege un punct focal."
 
@@ -600,8 +600,8 @@ msgstr "Mărci de culori"
 msgid "Color data is currently unavailable. Check your connection and try again."
 msgstr "Datele de culoare sunt momentan indisponibile. Verificați conexiunea și încercați din nou."
 
-#: src/components/ImageTonalValues.tsx:128
-#: src/components/ImageTonalValues.tsx:131
+#: src/components/ImageTonalValues.tsx:136
+#: src/components/ImageTonalValues.tsx:139
 msgid "Color map"
 msgstr "Hartă de culori"
 
@@ -661,11 +661,19 @@ msgstr "Culori necesare"
 msgid "Colors needed for this palette"
 msgstr "Culori necesare pentru această paletă"
 
+#: src/components/ImageTonalValues.tsx:169
+msgid "Compare"
+msgstr "Comparați"
+
 #: src/components/messages.ts:44
 msgid "Compare images"
 msgstr "Comparare imagini"
 
-#: src/components/color/CompareMixtureDrawer.tsx:152
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:54
+msgid "Compare tonal values"
+msgstr "Comparați valorile tonale"
+
+#: src/components/color/CompareMixtureDrawer.tsx:151
 #: src/components/color/PaletteColorMixtureCard.tsx:181
 msgid "Compare your mix"
 msgstr "Comparați amestecul dumneavoastră"
@@ -755,7 +763,7 @@ msgstr "Nu s-a putut exporta copia de rezervă"
 msgid "Could not import backup"
 msgstr "Nu s-a putut importa copia de rezervă"
 
-#: src/components/color/CompareMixtureDrawer.tsx:186
+#: src/components/file/PhotoPicker.tsx:44
 msgid "Could not open this photo. Choose another one."
 msgstr "Nu s-a putut deschide această fotografie. Alegeți alta."
 
@@ -901,7 +909,7 @@ msgstr "Determinați cea mai bună imagine prin comparație în perechi"
 msgid "Diagnostics"
 msgstr "Diagnosticare"
 
-#: src/components/grid/GridControls.tsx:153
+#: src/components/grid/GridControls.tsx:165
 msgid "Diagonals"
 msgstr "Diagonale"
 
@@ -1029,13 +1037,9 @@ msgstr "Introduceți un nume"
 msgid "Enter a valid email"
 msgstr "Introduceți un e-mail valid"
 
-#: src/components/ImageOutline.tsx:276
+#: src/components/ImageOutline.tsx:245
 msgid "Enter lightbox mode to trace the outline through your paper"
 msgstr "Intrați în modul lightbox pentru a trasa conturul prin hârtie"
-
-#: src/components/ImageOutline.tsx:341
-msgid "Enter lightbox mode to trace the outline through your paper."
-msgstr "Intrați în modul lightbox pentru a trasa conturul prin hârtie."
 
 #: src/components/auth/LoginEmailOtpButton.tsx:244
 msgid "Enter the code"
@@ -1061,8 +1065,11 @@ msgstr "Temperatura estimată a sursei de lumină în Kelvin cu care a fost făc
 msgid "Etching"
 msgstr "Acvaforte"
 
-#: src/components/ImageOutline.tsx:297
-#: src/components/ImageOutline.tsx:349
+#: src/components/ImageTonalValues.tsx:179
+msgid "Exit"
+msgstr "Ieșiți"
+
+#: src/components/ImageOutline.tsx:252
 msgid "Exit AR"
 msgstr "Ieșiți din AR"
 
@@ -1138,7 +1145,7 @@ msgstr "Cel mai fin"
 msgid "Finish editing"
 msgstr "Finalizați editarea"
 
-#: src/components/ImageSimplifier.tsx:141
+#: src/components/ImageSimplifier.tsx:138
 msgid "Focal point instructions"
 msgstr "Instrucțiuni pentru punctul focal"
 
@@ -1183,8 +1190,9 @@ msgstr "Accesați fila {label}"
 msgid "Gouache"
 msgstr "Guașă"
 
-#: src/components/grid/GridControls.tsx:131
-#: src/components/ImageOutline.tsx:316
+#: src/components/grid/GridControls.tsx:137
+#: src/components/grid/GridControls.tsx:142
+#: src/components/ImageOutline.tsx:262
 #: src/components/messages.ts:37
 msgid "Grid"
 msgstr "Grilă"
@@ -1214,7 +1222,7 @@ msgstr "Orizontal"
 msgid "If you don't save, changes to the color set may be lost."
 msgstr "Dacă nu salvați, modificările aduse setului de culori se pot pierde."
 
-#: src/components/color/CompareMixtureDrawer.tsx:168
+#: src/components/color/CompareMixtureDrawer.tsx:167
 msgid "If your paint changes color as it dries, wait until the swatch is dry. Take the photo in even light, with some of the white paper or canvas showing and no shadows or glare."
 msgstr "Dacă vopseaua își schimbă culoarea când se usucă, așteptați până când mostra este uscată. Faceți fotografia în lumină uniformă, lăsând vizibilă o parte din hârtia sau pânza albă, fără umbre sau reflexii."
 
@@ -1340,15 +1348,11 @@ msgstr "Mai puțin"
 msgid "Light"
 msgstr "Ușor"
 
-#: src/components/ImageOutline.tsx:340
-msgid "Light box"
-msgstr "Lightbox"
-
 #: src/components/messages.ts:86
 msgid "Light tones"
 msgstr "Tonuri deschise"
 
-#: src/components/ImageOutline.tsx:284
+#: src/components/ImageOutline.tsx:243
 msgid "Lightbox"
 msgstr "Lightbox"
 
@@ -1385,7 +1389,7 @@ msgstr "Rezultatul autentificării nu a fost primit"
 msgid "Loose painting"
 msgstr "Pictură liberă"
 
-#: src/components/ImagePainting.tsx:182
+#: src/components/ImagePainting.tsx:198
 msgid "Loose painting is available only to paid Patreon members"
 msgstr "Pictura liberă este disponibilă numai pentru membrii Patreon plătitori"
 
@@ -1469,7 +1473,7 @@ msgstr "Amestecați vopseaua cu un mediu acrilic de glasare pentru a aplica un s
 msgid "Mix this color into every mixture."
 msgstr "Amestecați această culoare în fiecare amestec."
 
-#: src/components/color/CompareMixtureDrawer.tsx:256
+#: src/components/color/CompareMixtureDrawer.tsx:243
 msgid "Mix well and take a new photo"
 msgstr "Amestecați bine și faceți o fotografie nouă"
 
@@ -1486,8 +1490,8 @@ msgstr "Amestec"
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:69
 #: src/components/image-editor/RestoreEditorControls.tsx:64
 #: src/components/image-editor/SharpenEditorControls.tsx:62
-#: src/components/ImageOutline.tsx:254
-#: src/components/ImageOutline.tsx:260
+#: src/components/ImageOutline.tsx:217
+#: src/components/ImageOutline.tsx:223
 msgid "Mode"
 msgstr "Mod"
 
@@ -1496,11 +1500,10 @@ msgid "More"
 msgstr "Mai multe"
 
 #: src/components/ColorMixingChart.tsx:217
-#: src/components/image/ImageActions.tsx:115
 #: src/components/image/ImageSaveButton.tsx:66
+#: src/components/image/ImageToolbar.tsx:217
 #: src/components/ImageColorPicker.tsx:354
 #: src/components/ImageLimitedPalette.tsx:181
-#: src/components/ImageOutline.tsx:376
 msgid "More actions"
 msgstr "Mai multe acțiuni"
 
@@ -1508,11 +1511,11 @@ msgstr "Mai multe acțiuni"
 msgid "Mosaic"
 msgstr "Mozaic"
 
-#: src/components/color/CompareMixtureDrawer.tsx:138
+#: src/components/color/CompareMixtureDrawer.tsx:137
 msgid "Move the squares so they do not overlap"
 msgstr "Mutați pătratele astfel încât să nu se suprapună"
 
-#: src/components/color/CompareMixtureDrawer.tsx:136
+#: src/components/color/CompareMixtureDrawer.tsx:135
 msgid "Move the white point to the white paper or canvas, away from shadows and glare"
 msgstr "Mutați punctul alb pe hârtia sau pânza albă, departe de umbre și reflexii"
 
@@ -1563,7 +1566,7 @@ msgstr "Dimensiune nouă: {outputWidth} × {outputHeight}"
 msgid "Next charge date"
 msgstr "Data următoarei plăți"
 
-#: src/components/color/CompareMixtureDrawer.tsx:264
+#: src/components/color/CompareMixtureDrawer.tsx:251
 msgid "No better match found. Check the swatch and lighting."
 msgstr "Nu s-a găsit o potrivire mai bună. Verificați mostra și iluminarea."
 
@@ -1605,11 +1608,11 @@ msgstr "Nu sunteți sigur ce e-mail folosește Patreon? Verificați <0>setările
 msgid "Nothing to share"
 msgstr "Nu există nimic de partajat"
 
-#: src/components/ImagePainting.tsx:128
+#: src/components/ImagePainting.tsx:132
 msgid "Number of brush strokes in the painting"
 msgstr "Numărul de tușe de pensulă din pictură"
 
-#: src/components/grid/GridControls.tsx:146
+#: src/components/grid/GridControls.tsx:153
 msgid "Number of cells on the smaller side (vertical or horizontal)"
 msgstr "Numărul de celule pe partea mai mică (verticală sau orizontală)"
 
@@ -1640,7 +1643,7 @@ msgstr "Doar un număr limitat de mărci de culori sunt disponibile în versiune
 #: src/components/image-editor/ColorizeEditorControls.tsx:92
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:81
 #: src/components/image-editor/RestoreEditorControls.tsx:76
-#: src/components/ImageOutline.tsx:388
+#: src/components/ImageOutline.tsx:289
 msgid "Only a limited number of modes are available in the free version"
 msgstr "Doar un număr limitat de moduri sunt disponibile în versiunea gratuită"
 
@@ -1678,7 +1681,7 @@ msgid "Or select from your recent photos"
 msgstr "Sau selectați dintre fotografiile recente"
 
 #: src/components/image-editor/CropEditorControls.tsx:37
-#: src/components/image/ImageViewSelector.tsx:45
+#: src/components/image/ImageViewSelector.tsx:44
 msgid "Original"
 msgstr "Original"
 
@@ -1686,7 +1689,7 @@ msgstr "Original"
 msgid "Original color temperature (K)"
 msgstr "Temperatura de culoare originală (K)"
 
-#: src/components/ImageOutline.tsx:269
+#: src/components/ImageOutline.tsx:232
 #: src/components/messages.ts:36
 msgid "Outline"
 msgstr "Contur"
@@ -1700,15 +1703,15 @@ msgid "over"
 msgstr "peste"
 
 #: src/components/ImageLimitedPalette.tsx:138
-#: src/components/ImagePainting.tsx:163
+#: src/components/ImagePainting.tsx:178
 msgid "Paint"
 msgstr "Pictare"
 
-#: src/components/color/CompareMixtureDrawer.tsx:162
+#: src/components/color/CompareMixtureDrawer.tsx:161
 msgid "Paint a swatch of your mix at full strength on white paper or canvas. For a wash or thin layer, test the mix before you thin it."
 msgstr "Pictați o mostră din amestecul dumneavoastră nediluat pe hârtie albă sau pânză albă. Pentru un laviu sau un strat subțire, testați amestecul înainte de a-l dilua."
 
-#: src/components/ImagePainting.tsx:168
+#: src/components/ImagePainting.tsx:162
 msgid "Painting"
 msgstr "Pictură"
 
@@ -1773,7 +1776,7 @@ msgstr "Fotografie indisponibilă. Restaurați-o din spațiul de stocare în clo
 msgid "Photo unavailable. Select the original again to repair it."
 msgstr "Fotografie indisponibilă. Selectați din nou originalul pentru a o repara."
 
-#: src/components/color/CompareMixtureDrawer.tsx:197
+#: src/components/color/CompareMixtureDrawer.tsx:184
 msgid "Photo with squares on the white point and your mix"
 msgstr "Fotografie cu pătrate pe punctul alb și pe amestecul dumneavoastră"
 
@@ -1838,11 +1841,8 @@ msgstr "Apăsați butonul <0>Adăugați la paletă</0> de lângă amestecul de c
 
 #: src/components/color/ColorSwatchDrawer.tsx:80
 #: src/components/ColorMixingChart.tsx:149
-#: src/components/image/ImageActions.tsx:64
-#: src/components/image/ImageActions.tsx:85
+#: src/components/image/ImageToolbar.tsx:127
 #: src/components/ImageLimitedPalette.tsx:146
-#: src/components/ImageOutline.tsx:324
-#: src/components/ImageOutline.tsx:360
 #: src/components/ImagesCompare.tsx:181
 #: src/components/palette/PaletteGrid.tsx:142
 #: src/components/print/PrintImageDrawer.tsx:183
@@ -2033,10 +2033,9 @@ msgstr "Saturație (%)"
 #: src/components/ColorMixingChart.tsx:158
 #: src/components/ColorSetChooser.tsx:250
 #: src/components/CustomColorBrandCreator.tsx:518
-#: src/components/image/ImageActions.tsx:92
 #: src/components/image/ImageSaveButton.tsx:40
+#: src/components/image/ImageToolbar.tsx:140
 #: src/components/ImageLimitedPalette.tsx:153
-#: src/components/ImageOutline.tsx:367
 msgid "Save"
 msgstr "Salvare"
 
@@ -2171,7 +2170,7 @@ msgstr "Selectați limba"
 msgid "Select part"
 msgstr "Selectați proporția"
 
-#: src/components/color/CompareMixtureDrawer.tsx:179
+#: src/components/file/PhotoPicker.tsx:37
 #: src/components/ImageChooser.tsx:123
 msgid "Select photo"
 msgstr "Selectați fotografia"
@@ -2211,7 +2210,7 @@ msgstr "Selectați tehnica artistică, mărcile de culori și culorile cu care v
 #: src/components/image-editor/ColorizeEditorControls.tsx:86
 #: src/components/image-editor/RemoveBackgroundEditorControls.tsx:75
 #: src/components/image-editor/RestoreEditorControls.tsx:70
-#: src/components/ImageOutline.tsx:382
+#: src/components/ImageOutline.tsx:283
 msgid "Selected mode is available only to paid Patreon members"
 msgstr "Modul selectat este disponibil numai pentru membrii Patreon plătitori"
 
@@ -2235,8 +2234,8 @@ msgstr "Sesiunea a expirat"
 msgid "Set as main color set"
 msgstr "Setați ca set principal de culori"
 
-#: src/components/image/ImageActions.tsx:103
 #: src/components/image/ImageSaveButton.tsx:56
+#: src/components/image/ImageToolbar.tsx:151
 #: src/components/ImageLimitedPalette.tsx:162
 msgid "Set as reference"
 msgstr "Setați ca referință"
@@ -2299,7 +2298,7 @@ msgstr "Afișați toate"
 msgid "Show areas on the photo that match this color."
 msgstr "Afișează zonele de pe fotografie care se potrivesc cu această culoare."
 
-#: src/components/grid/GridControls.tsx:123
+#: src/components/grid/GridControls.tsx:129
 msgid "Show grid"
 msgstr "Afișați grila"
 
@@ -2315,7 +2314,7 @@ msgstr "Afișați fotografiile mai vechi"
 msgid "Show on photo"
 msgstr "Afișați pe fotografie"
 
-#: src/components/grid/GridControls.tsx:155
+#: src/components/grid/GridControls.tsx:167
 msgid "Show or hide diagonal lines"
 msgstr "Afișați sau ascundeți liniile diagonale"
 
@@ -2335,7 +2334,7 @@ msgstr "Similitudine"
 msgid "Similarity mode compares the target and suggested colors. In Mixture mode, the parts of the color that make up the mixture are displayed."
 msgstr "Modul de similitudine compară culorile țintă și sugerate. În modul Amestec, sunt afișate părțile culorii care alcătuiesc amestecul."
 
-#: src/components/ImageSimplifier.tsx:118
+#: src/components/ImageSimplifier.tsx:123
 msgid "Simplified"
 msgstr "Simplificat"
 
@@ -2400,7 +2399,7 @@ msgstr "Curba de reflectanță spectrală"
 msgid "Speed"
 msgstr "Viteză"
 
-#: src/components/grid/GridControls.tsx:113
+#: src/components/grid/GridControls.tsx:119
 msgid "Square cells"
 msgstr "Celule pătrate"
 
@@ -2428,8 +2427,8 @@ msgstr "Utilizarea spațiului de stocare"
 msgid "Strength"
 msgstr "Intensitate"
 
-#: src/components/ImagePainting.tsx:126
-#: src/components/ImagePainting.tsx:144
+#: src/components/ImagePainting.tsx:130
+#: src/components/ImagePainting.tsx:148
 msgid "Strokes"
 msgstr "Tușe de pensulă"
 
@@ -2476,7 +2475,11 @@ msgstr "Sincronizați cu {label}"
 msgid "Take a photo"
 msgstr "Faceți o fotografie"
 
-#: src/components/ImageSimplifier.tsx:110
+#: src/components/tonal-value/CompareTonalValuesDrawer.tsx:67
+msgid "Take a photo of your painting to compare its tonal values with the reference photo. Use even light with no shadows or glare."
+msgstr "Faceți o fotografie a picturii dumneavoastră pentru a-i compara valorile tonale cu cele din fotografia de referință. Folosiți o lumină uniformă, fără umbre sau reflexii."
+
+#: src/components/ImageSimplifier.tsx:112
 msgid "Tap 👆 anywhere in the photo to choose a focal point."
 msgstr "Atingeți 👆 oriunde în fotografie pentru a alege un punct focal."
 
@@ -2484,7 +2487,7 @@ msgstr "Atingeți 👆 oriunde în fotografie pentru a alege un punct focal."
 msgid "Taped margin width around the painting area"
 msgstr "Lățimea marginii lipite în jurul zonei de pictură"
 
-#: src/components/color/CompareMixtureDrawer.tsx:145
+#: src/components/color/CompareMixtureDrawer.tsx:144
 #: src/components/ImageColorPicker.tsx:321
 #: src/components/ImageColorPicker.tsx:333
 msgid "Target color"
@@ -2639,7 +2642,7 @@ msgstr "Pentru a utiliza funcția {tabLabel}, selectați o fotografie de referin
 msgid "To use the {tabLabel} feature, select supported art medium and colors to paint with"
 msgstr "Pentru a utiliza funcția {tabLabel}, selectați tehnica artistică acceptată și culorile cu care să pictați"
 
-#: src/components/ImageTonalValues.tsx:140
+#: src/components/ImageTonalValues.tsx:151
 #: src/components/messages.ts:33
 msgid "Tonal values"
 msgstr "Valori tonale"
@@ -2709,7 +2712,7 @@ msgstr "Nu se pot încărca modurile de colorare"
 msgid "Unable to load the object removal model"
 msgstr "Nu se poate încărca modelul de eliminare a obiectelor"
 
-#: src/components/ImageOutline.tsx:102
+#: src/components/ImageOutline.tsx:83
 msgid "Unable to load the outline modes"
 msgstr "Nu se pot încărca modurile de contur"
 
@@ -2851,13 +2854,9 @@ msgstr "Vertical"
 msgid "Vienna Secession"
 msgstr "Secesiunea vieneză"
 
-#: src/components/ImageOutline.tsx:288
+#: src/components/ImageOutline.tsx:255
 msgid "View the outline over the live camera to trace in AR"
 msgstr "Vizualizați conturul peste camera în direct pentru a-l trasa în AR"
-
-#: src/components/ImageOutline.tsx:350
-msgid "View the outline over the live camera to trace in AR."
-msgstr "Vizualizați conturul peste camera în direct pentru a-l trasa în AR."
 
 #: src/components/auth/AuthFeedbackHandler.tsx:181
 #: src/components/cloud/CloudFeedbackHandler.tsx:216
@@ -2919,7 +2918,7 @@ msgid "White"
 msgstr "Alb"
 
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:175
-#: src/components/ImageTonalValues.tsx:157
+#: src/components/ImageTonalValues.tsx:187
 msgid "White balance"
 msgstr "Balans de alb"
 
@@ -2927,7 +2926,7 @@ msgstr "Balans de alb"
 msgid "White paper or canvas"
 msgstr "Hârtie sau pânză albă"
 
-#: src/components/color/CompareMixtureDrawer.tsx:237
+#: src/components/color/CompareMixtureDrawer.tsx:224
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:226
 #: src/components/image-editor/AdjustColorsEditorControls.tsx:232
 msgid "White point"
@@ -3012,11 +3011,11 @@ msgstr "Imaginile dvs. sunt procesate pe dispozitivul dvs. și sunt trimise numa
 msgid "Your login credentials could not be verified. Sign in again."
 msgstr "Datele dvs. de autentificare nu au putut fi verificate. Conectați-vă din nou."
 
-#: src/components/color/CompareMixtureDrawer.tsx:220
+#: src/components/color/CompareMixtureDrawer.tsx:207
 msgid "Your mix"
 msgstr "Amestecul dumneavoastră"
 
-#: src/components/color/CompareMixtureDrawer.tsx:262
+#: src/components/color/CompareMixtureDrawer.tsx:249
 msgid "Your mix is close to the target"
 msgstr "Amestecul dumneavoastră este apropiat de culoarea țintă"
 
