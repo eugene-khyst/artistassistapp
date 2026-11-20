@@ -38,6 +38,7 @@ const BROWSER_FEATURES: Record<string, boolean> = {
   webgl2: isWebGl2Supported(),
   indexedDB: typeof indexedDB !== 'undefined',
   DecompressionStream: typeof DecompressionStream !== 'undefined',
+  WebAssembly: typeof WebAssembly !== 'undefined',
 };
 
 const IS_BROWSER_SUPPORTED = Object.values(BROWSER_FEATURES).every(Boolean);
@@ -62,7 +63,7 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
               <ul>
                 <li>
                   <Trans>
-                    <AppleOutlined className="u-text-tertiary" /> iPadOS 16.4+ or iOS 16.4+ (not
+                    <AppleOutlined className="u-text-tertiary" /> iPadOS 17+ or iOS 17+ (not
                     supported in any browser on older versions of iPadOS and iOS)
                   </Trans>
                 </li>
@@ -70,7 +71,7 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                   <AndroidOutlined className="u-text-tertiary" /> Android
                   <ul>
                     <li>Chrome 124+</li>
-                    <li>Firefox 113+</li>
+                    <li>Firefox 114+</li>
                     <li>Opera 110+</li>
                     <li>Samsung Internet 27+</li>
                   </ul>
@@ -89,7 +90,7 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                 <li>
                   <AppleOutlined className="u-text-tertiary" /> macOS
                   <ul>
-                    <li>Safari 16.4 (macOS Big Sur, Monterey, Ventura, Sonoma or later)</li>
+                    <li>Safari 17+ (macOS Monterey, Ventura, Sonoma or later)</li>
                     <li>
                       <Trans>
                         or install the latest version of the Chrome, Edge, Firefox or Opera web
@@ -106,7 +107,7 @@ export function BrowserSupport({children}: Readonly<PropsWithChildren>) {
                   <ul>
                     <li>Chrome 124+</li>
                     <li>Edge 124+</li>
-                    <li>Firefox 113+</li>
+                    <li>Firefox 114+</li>
                     <li>Opera 110+</li>
                   </ul>
                 </li>

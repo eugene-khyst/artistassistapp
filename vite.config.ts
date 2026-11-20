@@ -74,7 +74,7 @@ export default defineConfig(({command, mode}) => ({
   },
 
   build: {
-    target: ['chrome124', 'edge124', 'firefox113', 'safari16.4', 'ios16.4'],
+    target: ['chrome124', 'edge124', 'firefox114', 'safari17', 'ios17'],
     sourcemap: mode === 'development',
     chunkSizeWarningLimit: maxFileSize,
     rolldownOptions: {

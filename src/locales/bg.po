@@ -46,7 +46,7 @@ msgstr "{unavailableImageCount, plural, one {Резервното копие е 
 msgid "<0/> Android, <1/> Windows, <2/> Linux and <3/> ChromeOS"
 msgstr "<0/> Android, <1/> Windows, <2/> Linux и <3/> ChromeOS"
 
-#: src/components/error/BrowserSupport.tsx:83
+#: src/components/error/BrowserSupport.tsx:85
 msgid "<0/> Desktop or laptop"
 msgstr "<0/> Настолен компютър или лаптоп"
 
@@ -54,15 +54,15 @@ msgstr "<0/> Настолен компютър или лаптоп"
 msgid "<0/> iOS and iPadOS"
 msgstr "<0/> iOS и iPadOS"
 
-#: src/components/error/BrowserSupport.tsx:63
-msgid "<0/> iPadOS 16.4+ or iOS 16.4+ (not supported in any browser on older versions of iPadOS and iOS)"
-msgstr "<0/> iPadOS 16.4+ или iOS 16.4+ (не се поддържа в нито един браузър на по-стари версии на iPadOS и iOS)"
+#: src/components/error/BrowserSupport.tsx:65
+msgid "<0/> iPadOS 17+ or iOS 17+ (not supported in any browser on older versions of iPadOS and iOS)"
+msgstr "<0/> iPadOS 17+ или iOS 17+ (не се поддържа в нито един браузър на по-стари версии на iPadOS и iOS)"
 
-#: src/components/error/BrowserSupport.tsx:56
+#: src/components/error/BrowserSupport.tsx:58
 msgid "<0/> Tablet and <1/> Mobile"
 msgstr "<0/> Таблет и <1/> мобилен телефон"
 
-#: src/components/error/BrowserSupport.tsx:101
+#: src/components/error/BrowserSupport.tsx:103
 #: src/components/install/InstallDrawer.tsx:61
 msgid "<0/> Windows and <1/> Linux"
 msgstr "<0/> Windows и <1/> Linux"
@@ -905,7 +905,7 @@ msgstr "Подробности"
 msgid "Determine the best image by pairwise comparison"
 msgstr "Определете най-доброто изображение чрез сравнение по двойки"
 
-#: src/components/error/BrowserSupport.tsx:120
+#: src/components/error/BrowserSupport.tsx:122
 msgid "Diagnostics"
 msgstr "Диагностика"
 
@@ -1660,7 +1660,7 @@ msgstr "Отваряне в браузъра Safari"
 msgid "Open your <0>Patreon basic settings</0> and confirm that the listed email address is the same one you entered."
 msgstr "Отворете <0>основните настройки на Patreon</0> и потвърдете, че посоченият имейл адрес е същият, който сте въвели."
 
-#: src/components/error/BrowserSupport.tsx:93
+#: src/components/error/BrowserSupport.tsx:95
 msgid "or install the latest version of the Chrome, Edge, Firefox or Opera web browser"
 msgstr "или инсталирайте най-новата версия на уеб браузъра Chrome, Edge, Firefox или Opera"
 
@@ -1964,8 +1964,8 @@ msgid "Required"
 msgstr "Задължително"
 
 #: src/components/install/InstallDrawer.tsx:124
-msgid "Requires iOS 16.4+ or iPadOS 16.4+."
-msgstr "Изисква iOS 16.4+ или iPadOS 16.4+."
+msgid "Requires iOS 17+ or iPadOS 17+."
+msgstr "Изисква iOS 17+ или iPadOS 17+."
 
 #: src/components/install/InstallDrawer.tsx:174
 msgid "Requires macOS Sonoma or later."
@@ -2448,7 +2448,7 @@ msgstr "Разпознаване на мотива"
 msgid "Supported art mediums:"
 msgstr "Поддържани художествени материали:"
 
-#: src/components/error/BrowserSupport.tsx:50
+#: src/components/error/BrowserSupport.tsx:52
 msgid "Supported web browsers and operating systems"
 msgstr "Поддържани уеб браузъри и операционни системи"
 
@@ -3031,6 +3031,6 @@ msgstr "Сесията ви изтече. Влезте отново, за да �
 msgid "Your style image"
 msgstr "Вашето изображение за стил"
 
-#: src/components/error/BrowserSupport.tsx:48
+#: src/components/error/BrowserSupport.tsx:50
 msgid "Your web browser is not supported"
 msgstr "Вашият уеб браузър не се поддържа"

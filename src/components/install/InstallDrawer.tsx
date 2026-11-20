@@ -121,7 +121,7 @@ function IOSInstructions() {
         </Typography.Text>
       </Space>
       <Typography.Text>
-        <Trans>Requires iOS 16.4+ or iPadOS 16.4+.</Trans>
+        <Trans>Requires iOS 17+ or iPadOS 17+.</Trans>
       </Typography.Text>
     </Space>
   );
